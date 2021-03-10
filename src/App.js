@@ -1,12 +1,13 @@
 import "./App.css";
-import Login from "./components/login";
+import Routes from "./routes";
 import Menu from "./components/Menu";
 
 function App() {
   return (
     <div className="App">
+      <Menu />
       <header className="App-header">
-        <Login />
+        <Routes />
       </header>
     </div>
   );
