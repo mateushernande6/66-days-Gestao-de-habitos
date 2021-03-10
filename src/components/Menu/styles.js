@@ -11,9 +11,9 @@ export const StyledMenu = styled.div`
   background: rgb(255, 255, 255);
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(239, 239, 239, 1) 60%,
-    rgba(205, 205, 205, 1) 100%
+    rgba(230, 230, 230, 1) 0%,
+    rgba(190, 190, 190, 1) 60%,
+    rgba(150, 150, 150, 1) 100%
   );
   padding: 2vh 0;
   box-sizing: border-box;
