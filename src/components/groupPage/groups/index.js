@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ShowGroups from "./showGroups";
-const Group = () => {
+const Groups = () => {
   const [listGroup, setListGroup] = useState([]);
   const [nextUrl, setUrl] = useState("https://kabit-api.herokuapp.com/groups/");
   const [moreGroups, setMoreGroups] = useState(true);
@@ -26,11 +26,10 @@ const Group = () => {
 
   return (
     <div>
-      Ola Mundo
       <ShowGroups groupList={listGroup} />
       <button onClick={() => getGroups(nextUrl)}>More Groups</button>
     </div>
   );
 };
 
-export default Group;
+export default Groups;

@@ -1,6 +1,8 @@
 import { MainDiv, DivGroups, DivGroup, Title, Description } from "./styles";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import { ModalDiv } from "../modal/modalCreateGroup/styles";
+import ModalGroup from "../modal";
 const useStyles = makeStyles({
   root: {
     background: "linear-gradient(45deg, #8aeb91 30%, #86e78e 90%)",
@@ -17,9 +19,7 @@ const ShowGroups = ({ groupList, children }) => {
   const classes = useStyles();
   return (
     <MainDiv>
-      <Button className={classes.root} color="primary" variant="contained">
-        Create a Group
-      </Button>
+      <ModalGroup />
 
       <DivGroups>
         <h1>Grupos Disponiveis:</h1>
@@ -33,7 +33,7 @@ const ShowGroups = ({ groupList, children }) => {
                   <div>{value.description}</div>
                 </Description>
                 <div>
-                  Users: {value.users.length}{" "}
+                  Users: {value.users.length}
                   <Button
                     className={classes.root}
                     color="primary"
