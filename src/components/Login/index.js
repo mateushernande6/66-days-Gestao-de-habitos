@@ -1,19 +1,29 @@
 import logo from "../../images/66_days-removebg-preview.png";
 import TextField from "@material-ui/core/TextField";
-import { DivImage, DivInput, RegisteTag } from "./style";
+import { DivImage, DivInput, RegisteTag, ErrorMessage } from "./style";
 import Button from "@material-ui/core/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { IsLoggedThunk } from "../../store/modules/isLogged/thunks";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 const schema = yup.object().shape({
-  username: yup.string().required("Campo obrigatório"),
-  password: yup.string().required("Campo obrigatório"),
+  username: yup.string().required("Required field"),
+  password: yup
+    .string()
+    .min(6, "6 characters minimum")
+    .required("Required field"),
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [err, setErr] = useState(false);
+
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(schema),
   });
@@ -27,8 +37,10 @@ const Login = () => {
         console.log(response.data.access);
         localStorage.setItem("token", JSON.stringify(response.data.access));
         reset();
+        dispatch(IsLoggedThunk(true));
+        history.push("/home");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err && setErr(true));
   };
 
   return (
@@ -39,22 +51,33 @@ const Login = () => {
       <form onSubmit={handleSubmit(formSubmit)}>
         <DivInput>
           <div>
-            <TextField inputRef={register} name="username" label="User name" />
+            <TextField
+              helperText={errors.username?.message}
+              inputRef={register}
+              name="username"
+              label="User name"
+              error={!!errors.username}
+            />
           </div>
           <div>
             <TextField
+              helperText={errors.password?.message}
               type="password"
               name="password"
               label="Password"
               inputRef={register}
+              error={!!errors.password}
             />
           </div>
+          {err && <ErrorMessage>Incorrect username or password</ErrorMessage>}
           <Button type="submit" className="buttonLogin" variant="contained">
             Login
           </Button>
         </DivInput>
       </form>
-      <RegisteTag href="#">Register</RegisteTag>
+      <RegisteTag onClick={() => history.push("/register")}>
+        Register
+      </RegisteTag>
     </>
   );
 };
