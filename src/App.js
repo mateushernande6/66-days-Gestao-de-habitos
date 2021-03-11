@@ -1,13 +1,14 @@
 import "./App.css";
-import Group from "./components/groupPage/groups";
-import ModalGroup from "./components/group/modal";
-import CreateGroup from "./components/group/modal/modalCreateGroup";
-import Login from "./components/login";
+import Routes from "./routes";
+import Menu from "./components/Menu";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <Menu />
+      <header className="App-header">
+        <Routes />
+      </header>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Switch, Route } from "react-router-dom";
 import Login from "../components/Login";
-
+import GroupPage from "../components/groupPage/";
 const Routes = () => {
   return (
     <Switch>
@@ -25,7 +25,7 @@ const Routes = () => {
       </Route>
 
       <Route path="/group">
-        <div>Tela de grupos</div>
+        <GroupPage />
       </Route>
 
       <Route path="/password-reset">
