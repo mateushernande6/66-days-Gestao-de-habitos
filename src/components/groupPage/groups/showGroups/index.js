@@ -1,7 +1,6 @@
 import { MainDiv, DivGroups, DivGroup, Title, Description } from "./styles";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { ModalDiv } from "../modal/modalCreateGroup/styles";
 import ModalGroup from "../modal";
 const useStyles = makeStyles({
   root: {

@@ -4,6 +4,8 @@ export const MainDiv = styled.div`
   background-color: #ededf6;
   width: 500px;
   padding: 10px;
+  padding-top: 0px;
+  margin-top: 0px;
   color: black;
   border-radius: 10px;
 `;

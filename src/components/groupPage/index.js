@@ -1,8 +1,7 @@
 import Groups from "./groups";
 import UserGroup from "./userGroup";
-
 const GroupPage = () => {
-  const [haveGroup, setGroup] = useState(false);
+  const haveGroup = false;
   if (haveGroup) {
     return <UserGroup />;
   } else {
