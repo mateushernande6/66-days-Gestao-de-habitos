@@ -1,5 +1,6 @@
-import Groups from "./groups";
-import UserGroup from "./userGroup";
+import Groups from "../../components/groups";
+import UserGroup from "../../components/userGroup";
+
 const GroupPage = () => {
   const haveGroup = false;
   if (haveGroup) {

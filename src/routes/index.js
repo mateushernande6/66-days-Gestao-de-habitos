@@ -1,6 +1,6 @@
 import { Switch, Route } from "react-router-dom";
 import Login from "../components/Login";
-import GroupPage from "../components/groupPage/";
+import GroupPage from "../pages/GroupPage";
 const Routes = () => {
   return (
     <Switch>
