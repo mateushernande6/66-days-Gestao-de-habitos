@@ -1,4 +1,5 @@
 import { Switch, Route } from "react-router-dom";
+import CreateHabit from "../pages/CreateHabit";
 
 const Routes = () => {
   return (
@@ -30,6 +31,12 @@ const Routes = () => {
       <Route path="/password-reset">
         <div>Alteração de senha</div>
       </Route>
+
+      <Route path="/make-habit">
+        <CreateHabit />
+      </Route>
     </Switch>
   );
 };
+
+export default Routes;
