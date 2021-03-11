@@ -1,10 +1,11 @@
 import { Switch, Route } from "react-router-dom";
+import Login from "../components/Login";
 
 const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <div>Login</div>
+        <Login />
       </Route>
 
       <Route path="/home">
@@ -33,3 +34,5 @@ const Routes = () => {
     </Switch>
   );
 };
+
+export default Routes;
