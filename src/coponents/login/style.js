@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const DivImage = styled.div`
   height: 250px;
+  margin-left: 40px;
 `;
 export const DivInput = styled.div`
   div {
