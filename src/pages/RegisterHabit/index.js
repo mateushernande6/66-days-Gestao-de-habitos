@@ -12,13 +12,27 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container, Form, Label, useStyles } from "./Style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const RegisterHabit = () => {
   const classes = useStyles();
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [frequency, setFrequency] = useState("");
+  const [id, setId] = useState(0);
+  const [token, setToken] = useState(() => {
+    const localToken = localStorage.getItem("token") || "";
+    return JSON.parse(localToken);
+  });
+  const history = useHistory();
+
+  useEffect(() => {
+    const { user_id } = jwt_decode(token);
+    setId(user_id);
+  }, []);
 
   const schema = yup.object().shape({
     title: yup.string().required("Required field"),
@@ -32,7 +46,20 @@ const RegisterHabit = () => {
     data.category = category;
     data.difficulty = difficulty;
     data.frequency = frequency;
+    data.achieved = false;
+    data.how_much_achieved = 0;
+    data.user = id;
     console.log(data);
+
+    axios
+      .post("https://kabit-api.herokuapp.com/habits/", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then
+      // pode colocar o link p/proxima pag Aqui Silvio
+      // history.push()
+      ()
+      .catch((e) => console.log(e.response));
   };
 
   return (
