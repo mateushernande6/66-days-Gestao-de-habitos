@@ -1,9 +1,10 @@
 import { Switch, Route, Redirect } from "react-router-dom";
-import Login from "../Login";
-import Register from "../register";
+import Login from "../../pages/Login";
+import Register from "../../pages/register";
 import { useSelector } from "react-redux";
 import CreateHabit from "../../pages/CreateHabit";
 import RegisterHabit from "../../pages/RegisterHabit";
+import GroupPage from "../../pages/GroupPage";
 
 const Routes = () => {
   const isLogged = useSelector((state) => state.logged);
@@ -28,7 +29,7 @@ const Routes = () => {
           </Route>
 
           <Route path="/group">
-            <div>Tela de grupos</div>
+            <GroupPage />
           </Route>
 
           <Route path="/password-reset">
