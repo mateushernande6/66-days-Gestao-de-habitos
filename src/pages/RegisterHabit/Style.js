@@ -15,14 +15,18 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const Form = styled.div`
-  display: "flex";
-  flex-direction: "column";
-  align-items: "center";
-  justify-content: "center";
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const useStyles = makeStyles((theme) => ({
+  spaceBottom: {
+    marginBottom: "30px",
+  },
+
   formControl: {
     display: "flex",
     flexDirection: "column",
