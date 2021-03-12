@@ -3,6 +3,7 @@ import Login from "../../pages/Login";
 import Register from "../../pages/register";
 import { useSelector } from "react-redux";
 import Groups from "../../pages/groups";
+import Habits from "../../pages/habits";
 
 const Routes = () => {
   const isLogged = useSelector((state) => state.logged);
@@ -19,7 +20,7 @@ const Routes = () => {
       {isLogged ? (
         <>
           <Route path="/home">
-            <div>Tela de hábitos</div>
+            <Habits />
           </Route>
 
           <Route path="/dashboard">
