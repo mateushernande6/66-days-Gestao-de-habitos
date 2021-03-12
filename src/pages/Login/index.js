@@ -1,7 +1,6 @@
 import logo from "../../images/66_days-removebg-preview.png";
-import TextField from "@material-ui/core/TextField";
+import { TextField, Button } from "@material-ui/core";
 import { DivImage, DivInput, RegisteTag, ErrorMessage } from "./style";
-import Button from "@material-ui/core/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
