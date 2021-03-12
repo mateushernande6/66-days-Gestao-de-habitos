@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { IsLoggedThunk } from "../../store/modules/isLogged/thunks";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import jwt_decode from "jwt-decode";
 
 const schema = yup.object().shape({
   username: yup.string().required("Required field"),
@@ -35,7 +36,10 @@ const Login = () => {
       .then((response) => {
         localStorage.clear();
         console.log(response.data.access);
-        localStorage.setItem("token", JSON.stringify(response.data.access));
+        const { user_id } = jwt_decode(response.data.access);
+        const user = { user_id: user_id };
+        console.log(user);
+        localStorage.setItem("token", JSON.stringify(user));
         reset();
         dispatch(IsLoggedThunk(true));
         history.push("/home");
