@@ -21,7 +21,7 @@ const ShowGroups = ({ groupList, children }) => {
       <ModalGroup />
 
       <DivGroups>
-        <h1>Grupos Disponiveis:</h1>
+        <h1>Available Groups:</h1>
         {groupList.map((item, index) => (
           <div key={index}>
             {item.map((value, index) => (

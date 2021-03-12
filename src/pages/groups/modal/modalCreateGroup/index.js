@@ -2,12 +2,14 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
+import {
+  Button,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  makeStyles,
+} from "@material-ui/core";
 
 import { CategoryDiv, InputDiv, ModalDiv, ErrorMessage } from "./styles";
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +46,7 @@ const CreateGroup = () => {
 
     description: yup.string().max(60).required("Max 60 characters"),
   });
-  const [guardar, setGuardar] = useState([{}]);
+  const [save, setSave] = useState([{}]);
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -52,8 +54,8 @@ const CreateGroup = () => {
   const handleData = (data) => {
     console.log(data);
     data.category = category;
-    setGuardar(data);
-    console.log(guardar);
+    setSave(data);
+    console.log(save);
   };
 
   return (
@@ -120,9 +122,9 @@ const CreateGroup = () => {
         </section>
       </form>
       <div>
-        Name:{guardar.name}
-        Description:{guardar.description}
-        Category: {guardar.category}
+        Name:{save.name}
+        Description:{save.description}
+        Category: {save.category}
       </div>
     </ModalDiv>
   );

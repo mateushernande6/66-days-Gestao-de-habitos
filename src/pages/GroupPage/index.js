@@ -1,4 +1,4 @@
-import Groups from "../../components/groups";
+import Groups from "../groups";
 import UserGroup from "../../components/userGroup";
 
 const GroupPage = () => {
