@@ -34,11 +34,12 @@ const Login = () => {
       .post("https://kabit-api.herokuapp.com/sessions/", data)
       .then((response) => {
         localStorage.clear();
-        console.log(response.data.access);
+        const token = response.data.access;
         const { user_id } = jwt_decode(response.data.access);
         const user = { user_id: user_id };
         console.log(user);
-        localStorage.setItem("token", JSON.stringify(user));
+        localStorage.setItem("token", JSON.stringify(token));
+        localStorage.setItem("user_id", JSON.stringify(user));
         reset();
         dispatch(IsLoggedThunk(true));
         history.push("/home");

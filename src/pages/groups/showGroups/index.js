@@ -2,6 +2,9 @@ import { MainDiv, DivGroups, DivGroup, Title, Description } from "./styles";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import ModalGroup from "../modal";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { HaveGroupThunk } from "../../../store/modules/haveGroup/thunks";
 const useStyles = makeStyles({
   root: {
     background: "linear-gradient(45deg, #8aeb91 30%, #86e78e 90%)",
@@ -16,6 +19,21 @@ const useStyles = makeStyles({
 });
 const ShowGroups = ({ groupList, children }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handleJoin = (id) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    axios
+      .post(`https://kabit-api.herokuapp.com/groups/${id}/subscribe/`, null, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        dispatch(HaveGroupThunk(true));
+      })
+      .catch((err) => console.log(err.response));
+  };
+
   return (
     <MainDiv>
       <ModalGroup />
@@ -37,6 +55,7 @@ const ShowGroups = ({ groupList, children }) => {
                     className={classes.root}
                     color="primary"
                     variant="contained"
+                    onClick={() => handleJoin(value.id)}
                   >
                     Join
                   </Button>
