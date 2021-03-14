@@ -47,7 +47,6 @@ export const StyledContentBox = styled.div`
   main {
     width: 98%;
     height: 90%;
-    border: 1px solid black;
     margin: 0 auto;
     overflow: auto;
   }

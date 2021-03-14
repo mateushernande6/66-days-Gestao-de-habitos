@@ -42,7 +42,7 @@ const Login = () => {
         localStorage.setItem("user_id", JSON.stringify(user));
         reset();
         dispatch(IsLoggedThunk(true));
-        history.push("/home");
+        history.push("/make-habit");
       })
       .catch((err) => err && setErr(true));
   };

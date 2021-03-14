@@ -3,6 +3,8 @@ import Login from "../../pages/Login";
 import Register from "../../pages/register";
 import { useSelector } from "react-redux";
 import Habits from "../../pages/habits";
+import CreateHabit from "../../pages/CreateHabit";
+import RegisterHabit from "../../pages/RegisterHabit";
 import GroupPage from "../../pages/GroupPage";
 
 const Routes = () => {
@@ -33,6 +35,14 @@ const Routes = () => {
 
           <Route path="/password-reset">
             <div>Alteração de senha</div>
+          </Route>
+
+          <Route path="/make-habit">
+            <CreateHabit />
+          </Route>
+
+          <Route path="/register-habit">
+            <RegisterHabit />
           </Route>
         </>
       ) : (
