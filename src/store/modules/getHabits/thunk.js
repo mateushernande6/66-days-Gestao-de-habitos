@@ -7,7 +7,7 @@ export const getHabitsThunk = (token) => (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((resp) => {
-      console.log(resp.data);
+      // console.log(resp.data);
       dispatch(getHabits(resp.data));
     });
 };

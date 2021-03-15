@@ -5,6 +5,7 @@ import { StyledContainer, StyledContentBox } from "./styles";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import HabitCard from "../../../components/HabitCard";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -25,13 +26,14 @@ const useStyles = makeStyles({
 
 const MyHabits = () => {
   const classes = useStyles();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [token, setToken] = useState(() => {
     return JSON.parse(localStorage.getItem("token")) || "";
   });
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
-  const [anotherFilterCategory, setAnotherFilterCategory] = useState("all");
+  // const [anotherFilterCategory, setAnotherFilterCategory] = useState("all");
   const getHabits = useSelector((state) => state.getHabits);
 
   useEffect(() => {
@@ -101,40 +103,12 @@ const MyHabits = () => {
         </main>
       </StyledContentBox>
 
-      <StyledContentBox>
-        <header>
-          <p>Today's Habits</p>
-          <select
-            name="Category"
-            id="level"
-            value={anotherFilterCategory}
-            onChange={(e) => setAnotherFilterCategory(e.target.value)}
-          >
-            <option value="all">All</option>
-            <option value="career">Career</option>
-            <option value="food">Food</option>
-            <option value="health">Health</option>
-            <option value="study">Study</option>
-          </select>
-        </header>
-        <main>
-          {getHabits &&
-            getHabits
-              .filter((elem) =>
-                handleCategoryFilter(elem, anotherFilterCategory)
-              )
-              .map((elem, index) => (
-                <HabitCard
-                  key={index}
-                  habit={elem}
-                  panel={false}
-                  token={token}
-                />
-              ))}
-        </main>
-      </StyledContentBox>
-
-      <Button className={classes.root} color="primary" variant="contained">
+      <Button
+        onClick={() => history.push("/register-habit")}
+        className={classes.root}
+        color="primary"
+        variant="contained"
+      >
         Create Habit
       </Button>
     </StyledContainer>
@@ -142,3 +116,38 @@ const MyHabits = () => {
 };
 
 export default MyHabits;
+
+{
+  /* <StyledContentBox>
+  <header>
+    <p>Today's Habits</p>
+    <select
+      name="Category"
+      id="level"
+      value={anotherFilterCategory}
+      onChange={(e) => setAnotherFilterCategory(e.target.value)}
+    >
+      <option value="all">All</option>
+      <option value="career">Career</option>
+      <option value="food">Food</option>
+      <option value="health">Health</option>
+      <option value="study">Study</option>
+    </select>
+  </header>
+  <main>
+    {getHabits &&
+      getHabits
+        .filter((elem) =>
+          handleCategoryFilter(elem, anotherFilterCategory)
+        )
+        .map((elem, index) => (
+          <HabitCard
+            key={index}
+            habit={elem}
+            panel={false}
+            token={token}
+          />
+        ))}
+  </main>
+</StyledContentBox> */
+}

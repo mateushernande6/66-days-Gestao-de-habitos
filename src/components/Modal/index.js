@@ -65,7 +65,7 @@ export default function TransitionsModal({
           <Fade in={open}>
             <div className={classes.paper}>
               <h2 id="transition-modal-title">Habit info</h2>
-              <p id="transition-modal-description">{`Habit: ${habit.title}`}</p>
+              <p id="transition-modal-description">{`Title: ${habit.title}`}</p>
               <p id="transition-modal-description">{`Category: ${habit.category}`}</p>
               <p id="transition-modal-description">{`Difficulty: ${habit.difficulty}`}</p>
               <p id="transition-modal-description">{`Frequency: ${habit.frequency}`}</p>
