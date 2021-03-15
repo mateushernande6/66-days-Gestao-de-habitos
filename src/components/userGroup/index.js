@@ -1,5 +1,7 @@
+import ShowUserGroup from "./showGroup";
+
 const UserGroup = () => {
-  return <div>User Group</div>;
+  return <ShowUserGroup />;
 };
 
 export default UserGroup;
