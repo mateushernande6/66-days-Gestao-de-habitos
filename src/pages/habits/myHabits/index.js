@@ -1,10 +1,10 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getHabitsThunk } from "../../../store/modules/getHabits/thunk";
 import { StyledContainer, StyledContentBox } from "./styles";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import HabitCard from "../../../components/HabitCard";
-import { useState, useEffect } from "react";
-import { getHabitsThunk } from "../../../store/modules/getHabits/thunk";
-import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -33,13 +33,10 @@ const MyHabits = () => {
   const [filterCategory, setFilterCategory] = useState("all");
   const [anotherFilterCategory, setAnotherFilterCategory] = useState("all");
   const getHabits = useSelector((state) => state.getHabits);
-  console.log(getHabits);
 
   useEffect(() => {
     dispatch(getHabitsThunk(token));
   }, []);
-
-  console.log(getHabits);
 
   const handleCategoryFilter = (elem, value) => {
     if (value !== "all") {

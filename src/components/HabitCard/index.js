@@ -1,12 +1,12 @@
+import axios from "axios";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card } from "./styles";
 import { FaTrashAlt } from "react-icons/fa";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
 import Modal from "../../components/Modal";
-import { useState } from "react";
 
 const useStyles = makeStyles({
   root: {

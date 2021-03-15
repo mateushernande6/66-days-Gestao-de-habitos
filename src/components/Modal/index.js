@@ -1,8 +1,5 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
+import { Button, Modal, Backdrop, Fade } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -15,6 +12,29 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    textAlign: "center",
+  },
+  btnContainer: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  deleteBtn: {
+    background: "#F25456",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
+    color: "black",
+    width: "40%",
+    height: "80%",
+  },
+  backBtn: {
+    background: "#23B5B5",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
+    color: "black",
+    width: "40%",
+    height: "80%",
   },
 }));
 
@@ -55,21 +75,52 @@ export default function TransitionsModal({
               <p id="transition-modal-description">{`Progress: ${Math.round(
                 (habit.how_much_achieved / 66) * 100
               )}%`}</p>
+
+              <Button
+                className={classes.backBtn}
+                color="primary"
+                variant="contained"
+                onClick={handleClose}
+              >
+                Back
+              </Button>
             </div>
           </Fade>
         ) : (
           <Fade in={open}>
             <div className={classes.paper}>
               <h2 id="transition-modal-title">Confirm delete?</h2>
-              <button
+
+              <div className={classes.btnContainer}>
+                <Button
+                  className={classes.deleteBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => deleteHabit(habit.id)}
+                >
+                  Delete
+                </Button>
+
+                {/* <button
                 onClick={() => deleteHabit(habit.id)}
                 id="transition-modal-description"
-              >
+                >
                 Delete
-              </button>
-              <button onClick={handleClose} id="transition-modal-description">
+            </button> */}
+
+                <Button
+                  className={classes.backBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={handleClose}
+                >
+                  Back
+                </Button>
+              </div>
+
+              {/* <button onClick={handleClose} id="transition-modal-description">
                 Back
-              </button>
+              </button> */}
             </div>
           </Fade>
         )}

@@ -17,6 +17,10 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
+// aqui
+import { useDispatch } from "react-redux";
+import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
+
 const RegisterHabit = () => {
   const classes = useStyles();
   const [category, setCategory] = useState("");
@@ -28,6 +32,9 @@ const RegisterHabit = () => {
     return JSON.parse(localToken);
   });
   const history = useHistory();
+
+  // aqui
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const { user_id } = jwt_decode(token);
@@ -55,12 +62,11 @@ const RegisterHabit = () => {
       .post("https://kabit-api.herokuapp.com/habits/", data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(
-        // pode colocar o link p/proxima pag Aqui Silvio
-        // history.push()
-        history.push("/home")
-      )
+      .then(history.push("/home"))
       .catch((e) => console.log(e.response));
+
+    // Natan, eu precisei colocar um dispatch aqui, porque eu não conseguia receber imediatamente o resultado da inclusão no painel de hábitos.
+    dispatch(getHabitsThunk(token));
   };
 
   return (
