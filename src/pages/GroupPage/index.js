@@ -4,14 +4,15 @@ import { useSelector } from "react-redux";
 import PersonalGroup from "../personalGroup";
 
 const GroupPage = () => {
-  const haveGroup = useSelector((state) => state.haveGroup);
+  const joinGroup = useSelector((state) => state.haveGroup);
+  const haveGroup = JSON.parse(localStorage.getItem("userGroup"));
   console.log(haveGroup);
-
-  //if (haveGroup) {
-  return <PersonalGroup />;
-  //} else {
-  return <Groups />;
-  //}
+  console.log(joinGroup);
+  if (joinGroup || haveGroup) {
+    return <PersonalGroup />;
+  } else {
+    return <Groups />;
+  }
 };
 
 export default GroupPage;
