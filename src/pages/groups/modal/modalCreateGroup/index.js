@@ -2,6 +2,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 import {
   Button,
   Select,
@@ -10,6 +12,7 @@ import {
   InputLabel,
   makeStyles,
 } from "@material-ui/core";
+import { HaveGroupThunk } from "../../../../store/modules/haveGroup/thunks";
 
 import { CategoryDiv, InputDiv, ModalDiv, ErrorMessage } from "./styles";
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 const CreateGroup = () => {
   const classes = useStyles();
   const [category, setCategory] = useState("");
-
   const handleChange = (event) => {
     setCategory(event.target.value);
     console.log(category);
@@ -53,21 +55,13 @@ const CreateGroup = () => {
   });
   const handleData = (data) => {
     console.log(data);
+    const send = {};
+    send.name = data.name;
+    send.description = data.description;
+    send.category = category;
     data.category = category;
     setSave(data);
     console.log(save);
-    const handleJoin = (id) => {
-      const token = JSON.parse(localStorage.getItem("token"));
-      axios
-        .post(`https://kabit-api.herokuapp.com/groups/${id}/subscribe/`, null, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          console.log(response);
-          dispatch(HaveGroupThunk(true));
-        })
-        .catch((err) => console.log(err.response));
-    };
   };
 
   return (
