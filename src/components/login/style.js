@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const DivImage = styled.div`
   height: 250px;
-  margin-left: 40px;
 `;
 export const DivInput = styled.div`
   div {
@@ -25,10 +24,4 @@ export const RegisteTag = styled.a`
   margin-left: 112px;
   margin-top: 5px;
   margin-bottom: 30px;
-  cursor: pointer;
-`;
-export const ErrorMessage = styled.p`
-  margin: 0;
-  font-size: 14px;
-  color: #f34242;
 `;

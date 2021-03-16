@@ -1,16 +1,11 @@
 import "./App.css";
-import Routes from "./components/routes";
-import Menu from "./components/Menu";
-import { useSelector } from "react-redux";
+import Login from "./coponents/login";
 
 function App() {
-  const isLogged = useSelector((state) => state.logged);
-
   return (
     <div className="App">
-      {isLogged && <Menu />}
       <header className="App-header">
-        <Routes />
+        <Login />
       </header>
     </div>
   );
