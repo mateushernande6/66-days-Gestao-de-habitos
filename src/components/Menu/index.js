@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logo from "../../images/66 days-logo.png";
+import Logo from "../../images/66-days-logo.png";
 import { AiOutlineHome, AiOutlineBell, AiOutlineSetting } from "react-icons/ai";
 import { GrGroup } from "react-icons/gr";
 import { BsClipboardData, BsPower } from "react-icons/bs";
