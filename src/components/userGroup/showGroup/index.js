@@ -51,79 +51,87 @@ const ShowUserGroup = () => {
     // }
   }, []);
   return (
-    <MainDiv>
-      <InfoGroup>
-        <InfoGroupName>
-          <div>Group: {groupInfo && groupInfo.name}</div>
-        </InfoGroupName>
-        <StandardModal
-          buttonTxt="Leave Group"
-          buttonHeight="30px"
-          buttonMargin="6px"
-        >
-          <CreateGroup />
-        </StandardModal>
-        <Details>
-          <div> Category: {groupInfo && groupInfo.category}</div>
-          <div> Users: {groupInfo && groupInfo.users.length}</div>
-        </Details>
-      </InfoGroup>
-      <MainInfo>
-        <InfoGoalsBorder>
-          <InfoGoals>
-            <h5>Goals</h5>
+    <>
+      {groupInfo && (
+        <MainDiv>
+          <InfoGroup>
+            <InfoGroupName>
+              <div>Group: {groupInfo && groupInfo.name}</div>
+            </InfoGroupName>
+            <StandardModal
+              buttonTxt="Leave Group"
+              buttonHeight="30px"
+              buttonMargin="6px"
+            >
+              <CreateGroup />
+            </StandardModal>
+            <Details>
+              <div> Category: {groupInfo && groupInfo.category}</div>
+              <div> Users: {groupInfo && groupInfo.users.length}</div>
+            </Details>
+          </InfoGroup>
+          <MainInfo>
+            <InfoGoalsBorder>
+              <InfoGoals>
+                <h5>Goals</h5>
 
-            {groupInfo &&
-              groupInfo.goals.map((value, index) => (
-                <CardGoal key={index}>
-                  <GoalInfo>
-                    <b>{value.title} &#9;</b>
-                    <GoalDifficulty>
-                      &#91;{value.difficulty}&#93;
-                    </GoalDifficulty>
-                    <GoalStatus>
-                      {value.difficulty ? <i>In Progress</i> : <i>Completed</i>}
-                    </GoalStatus>
-                  </GoalInfo>
-                  <span>
-                    <RemoveGoals />
-                  </span>
-                </CardGoal>
-              ))}
-          </InfoGoals>
-          <StandardModal buttonColor="primary" buttonTxt="Create Goals">
-            <CreateGroup />
-          </StandardModal>
-        </InfoGoalsBorder>
-        <InfoActiviesBorder>
-          <InfoActivies>
-            <h5>Activies</h5>
+                {groupInfo &&
+                  groupInfo.goals.map((value, index) => (
+                    <CardGoal key={index}>
+                      <GoalInfo>
+                        <b>{value.title} &#9;</b>
+                        <GoalDifficulty>
+                          &#91;{value.difficulty}&#93;
+                        </GoalDifficulty>
+                        <GoalStatus>
+                          {value.difficulty ? (
+                            <i>In Progress</i>
+                          ) : (
+                            <i>Completed</i>
+                          )}
+                        </GoalStatus>
+                      </GoalInfo>
+                      <span>
+                        <RemoveGoals />
+                      </span>
+                    </CardGoal>
+                  ))}
+              </InfoGoals>
+              <StandardModal buttonColor="primary" buttonTxt="Create Goals">
+                <CreateGroup />
+              </StandardModal>
+            </InfoGoalsBorder>
+            <InfoActiviesBorder>
+              <InfoActivies>
+                <h5>Activies</h5>
 
-            <div>
-              {groupInfo &&
-                groupInfo.activities.map((value, index) => (
-                  <CardActivies key={index}>
-                    <ActiviesInfo>
-                      {value.title}
-                      <ActiviesTime>
-                        Activity time: {value.realization_time}
-                      </ActiviesTime>
-                      <ActiviesStatus>Waiting</ActiviesStatus>
-                    </ActiviesInfo>
+                <div>
+                  {groupInfo &&
+                    groupInfo.activities.map((value, index) => (
+                      <CardActivies key={index}>
+                        <ActiviesInfo>
+                          {value.title}
+                          <ActiviesTime>
+                            Activity time: {value.realization_time}
+                          </ActiviesTime>
+                          <ActiviesStatus>Waiting</ActiviesStatus>
+                        </ActiviesInfo>
 
-                    <span>
-                      <RemoveGoals />
-                    </span>
-                  </CardActivies>
-                ))}
-            </div>
-          </InfoActivies>
-          <StandardModal buttonColor="primary" buttonTxt="Create Activies">
-            <CreateGroup />
-          </StandardModal>
-        </InfoActiviesBorder>
-      </MainInfo>
-    </MainDiv>
+                        <span>
+                          <RemoveGoals />
+                        </span>
+                      </CardActivies>
+                    ))}
+                </div>
+              </InfoActivies>
+              <StandardModal buttonColor="primary" buttonTxt="Create Activies">
+                <CreateGroup />
+              </StandardModal>
+            </InfoActiviesBorder>
+          </MainInfo>
+        </MainDiv>
+      )}
+    </>
   );
 };
 
