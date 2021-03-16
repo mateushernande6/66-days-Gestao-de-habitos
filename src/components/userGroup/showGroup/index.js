@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import StandardModal from "../../modal";
+import CreateGoals from "../modalCreateGoals";
+import RemoveActivies from "../modalRemoveActivies";
 import RemoveGoals from "../modalRemoveGoals";
 
 import {
@@ -24,9 +26,10 @@ import {
   ActiviesTime,
 } from "./styles";
 const ShowUserGroup = () => {
-  const [userGroup, setGroup] = useState("");
   const [groupInfo, setInfo] = useState(false);
   const user = localStorage.getItem("token");
+  const userGroup = localStorage.getItem("userGroup") || "";
+
   console.log(user);
   // useEffect(() => {
   //   axios
@@ -40,16 +43,17 @@ const ShowUserGroup = () => {
 
   useEffect(() => {
     console.log(userGroup);
-    // if (userGroup !== "") {
-    axios
-      .get(`https://kabit-api.herokuapp.com/groups/${26}/`)
-      .then((response) => {
-        console.log(response.data);
-        setInfo(response.data);
-        console.log(groupInfo);
-      });
-    // }
+    if (userGroup !== "") {
+      axios
+        .get(`https://kabit-api.herokuapp.com/groups/${userGroup}/`)
+        .then((response) => {
+          console.log(response.data);
+          setInfo(response.data);
+          console.log(groupInfo);
+        });
+    }
   }, []);
+
   return (
     <>
       {groupInfo && (
@@ -92,14 +96,12 @@ const ShowUserGroup = () => {
                         </GoalStatus>
                       </GoalInfo>
                       <span>
-                        <RemoveGoals />
+                        <RemoveGoals groupName={groupInfo.name} />
                       </span>
                     </CardGoal>
                   ))}
               </InfoGoals>
-              <StandardModal buttonColor="primary" buttonTxt="Create Goals">
-                <CreateGroup />
-              </StandardModal>
+              <CreateGoals />
             </InfoGoalsBorder>
             <InfoActiviesBorder>
               <InfoActivies>
@@ -118,7 +120,7 @@ const ShowUserGroup = () => {
                         </ActiviesInfo>
 
                         <span>
-                          <RemoveGoals />
+                          <RemoveActivies groupName={groupInfo.name} />
                         </span>
                       </CardActivies>
                     ))}

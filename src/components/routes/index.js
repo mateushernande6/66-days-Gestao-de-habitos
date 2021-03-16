@@ -2,7 +2,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "../../pages/Login";
 import Register from "../../pages/register";
 import { useSelector } from "react-redux";
-import CreateHabit from "../../pages/CreateHabit";
+import Habits from "../../pages/habits";
+// import CreateHabit from "../../pages/CreateHabit";
 import RegisterHabit from "../../pages/RegisterHabit";
 import GroupPage from "../../pages/GroupPage";
 import Dashboard from "../../pages/dashboard";
@@ -23,7 +24,7 @@ const Routes = () => {
       {isLogged ? (
         <>
           <Route path="/home">
-            <div>Tela de hábitos</div>
+            <Habits />
           </Route>
 
           <Route path="/dashboard">
@@ -38,9 +39,9 @@ const Routes = () => {
             <div>Alteração de senha</div>
           </Route>
 
-          <Route path="/make-habit">
+          {/* <Route path="/make-habit">
             <CreateHabit />
-          </Route>
+          </Route> */}
 
           <Route path="/register-habit">
             <RegisterHabit />
