@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import CreateHabit from "../../pages/CreateHabit";
 import RegisterHabit from "../../pages/RegisterHabit";
 import GroupPage from "../../pages/GroupPage";
+import Dashboard from "../../pages/dashboard";
+import Dashborad from "../../pages/dashboard";
 
 const Routes = () => {
   const isLogged = useSelector((state) => state.logged);
@@ -25,7 +27,7 @@ const Routes = () => {
           </Route>
 
           <Route path="/dashboard">
-            <div>Dashboard</div>
+            <Dashborad />
           </Route>
 
           <Route path="/group">
