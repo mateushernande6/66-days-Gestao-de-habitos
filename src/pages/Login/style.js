@@ -35,7 +35,7 @@ export const Container = styled.main`
 
 export const ContainerTitle = styled.div`
   position: absolute;
-  left: 48px;
+  left: 110px;
   top: 288px;
   display: flex;
   flex-direction: column;
@@ -67,17 +67,14 @@ export const H1 = styled.h1`
 
 export const H2 = styled.h2`
   font-size: 14px;
-  font-family: "sans-serif";
-  font-weight: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
   margin: 0;
 `;
 
 export const Img = styled.img`
-  position: absolute;
-  left: -78px;
-  top: -30px;
-  width: 350px;
-  height: 350px;
+  width: 90px;
+  height: 90px;
 `;
 
 export const Form = styled.form`
