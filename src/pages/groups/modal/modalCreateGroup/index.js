@@ -56,6 +56,18 @@ const CreateGroup = () => {
     data.category = category;
     setSave(data);
     console.log(save);
+    const handleJoin = (id) => {
+      const token = JSON.parse(localStorage.getItem("token"));
+      axios
+        .post(`https://kabit-api.herokuapp.com/groups/${id}/subscribe/`, null, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          console.log(response);
+          dispatch(HaveGroupThunk(true));
+        })
+        .catch((err) => console.log(err.response));
+    };
   };
 
   return (
