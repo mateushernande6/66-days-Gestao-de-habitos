@@ -1,8 +1,9 @@
 import StandardModal from "../../modal";
 import { FaTrashAlt } from "react-icons/fa";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
-
-const RemoveGoals = () => {
+import StandardButton from "../../button";
+import { ContentModal } from "./styles";
+const RemoveActivies = ({ groupName }) => {
   return (
     <>
       <StandardModal
@@ -11,10 +12,17 @@ const RemoveGoals = () => {
         buttonHeight="30px"
         buttonMargin="6px"
       >
-        <CreateGroup />
+        <ContentModal>
+          <div>Delete Activies?</div>
+          <div>{groupName}</div>
+          <div>
+            <StandardButton buttonTxt="DELETE" />
+            <StandardButton buttonTxt="BACK" />
+          </div>
+        </ContentModal>
       </StandardModal>
     </>
   );
 };
 
-export default RemoveGoals;
+export default RemoveActivies;
