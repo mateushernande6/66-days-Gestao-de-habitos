@@ -8,10 +8,8 @@ function App() {
 
   return (
     <div className="App">
-      {isLogged && <Menu />}
-      <header className="App-header">
-        <Routes />
-      </header>
+      {/* {isLogged && <Menu />} */}
+      <Routes />
     </div>
   );
 }
