@@ -1,4 +1,4 @@
-import logo from "../../images/66_days-removebg-preview.png";
+import logo from "../../images/66-days-logo.png";
 import { TextField, Button } from "@material-ui/core";
 import {
   DivImage,
@@ -62,8 +62,6 @@ const Login = () => {
 
   return (
     <Container>
-      <Img src={logo} />
-
       <ContainerTitle>
         <H1>Welcome!</H1>
         <H2>Develop new healthy habits in 66 days!</H2>
@@ -72,6 +70,7 @@ const Login = () => {
       </ContainerTitle>
 
       <ContainerLogin>
+        <Img src={logo} />
         <Form onSubmit={handleSubmit(formSubmit)}>
           <DivInput>
             <div>
