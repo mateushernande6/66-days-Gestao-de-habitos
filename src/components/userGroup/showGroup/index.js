@@ -160,7 +160,11 @@ const ShowUserGroup = () => {
                         </ActiviesInfo>
 
                         <span>
-                          <RemoveActivies groupName={groupInfo.name} />
+                          <RemoveActivies
+                            groupName={groupInfo.name}
+                            value={value}
+                            token={token}
+                          />
                         </span>
                       </CardActivies>
                     ))}
