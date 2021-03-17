@@ -7,16 +7,12 @@ import api from "../../../services/index";
 
 const RemoveGoals = ({ value, token }) => {
   const deleteGoal = () => {
-    const previousProgress = JSON.parse(localStorage.getItem("goalProgress"));
-    let newProgress = "";
+    const previousProgress =
+      JSON.parse(localStorage.getItem("goalProgress")) || [];
 
-    if (previousProgress.length !== 0) {
-      newProgress = previousProgress.filter((elem) => elem.id !== value.id);
-    }
+    const newProgress = previousProgress.filter((elem) => elem.id !== value.id);
 
-    if (newProgress.length !== 0) {
-      localStorage.setItem("goalProgress", JSON.stringify(newProgress));
-    }
+    localStorage.setItem("goalProgress", JSON.stringify(newProgress));
 
     api
       .delete(`/goals/${value.id}/`, {
