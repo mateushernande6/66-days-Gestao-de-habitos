@@ -9,6 +9,7 @@ import RemoveGoals from "../modalRemoveGoals";
 import { addGoalProgressThunk } from "../../../store/modules/goalProgress/thunk";
 import { format } from "date-fns";
 import { FaTrashAlt } from "react-icons/fa";
+import editGoal from "../../../components/userGroup/editGoals";
 
 import {
   Details,
@@ -121,7 +122,7 @@ const ShowUserGroup = () => {
                         </GoalStatus>
                       </GoalInfo>
                       <button onClick={() => updateGoal(value.id)}>Done</button>
-
+                      <editGoal />
                       <span>
                         {/* <StandardModal buttonTxt={<FaTrashAlt />}>
                           <>

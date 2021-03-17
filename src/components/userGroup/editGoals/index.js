@@ -1,11 +1,11 @@
 import StandardModal from "../../modal";
 import StandardButton from "../../button";
-import { FaTrashAlt } from "react-icons/fa";
+import { AiFillEdit } from "react-icons/ai";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import { ContentModal } from "./styles";
 import api from "../../../services/index";
 
-const updateGoal = ({ value, token }) => {
+const editGoal = () => {
   // const deleteGoal = () => {
   //   const previousProgress = JSON.parse(localStorage.getItem("goalProgress"));
 
@@ -26,15 +26,14 @@ const updateGoal = ({ value, token }) => {
     <>
       <StandardModal
         buttonColor="default"
-        buttonTxt={<FaTrashAlt />}
+        buttonTxt={<AiFillEdit />}
         buttonHeight="30px"
         buttonMargin="6px"
       >
         <ContentModal>
-          <div>Delete Goals?</div>
-          <div>{value.title}</div>
+          <div>Edit Goal</div>
           <div>
-            <StandardButton onClick={() => deleteGoal()} buttonTxt="DELETE" />
+            <StandardButton buttonTxt="DELETE" />
             <StandardButton buttonTxt="BACK" />
           </div>
         </ContentModal>
@@ -43,4 +42,4 @@ const updateGoal = ({ value, token }) => {
   );
 };
 
-export default RemoveGoals;
+export default editGoal;
