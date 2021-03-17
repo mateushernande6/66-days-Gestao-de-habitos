@@ -6,6 +6,7 @@ import Habits from "../../pages/habits";
 // import CreateHabit from "../../pages/CreateHabit";
 import RegisterHabit from "../../pages/RegisterHabit";
 import GroupPage from "../../pages/GroupPage";
+import UpdateUser from "../../pages/updateUser";
 
 const Routes = () => {
   const isLogged = useSelector((state) => state.logged);
@@ -34,7 +35,7 @@ const Routes = () => {
           </Route>
 
           <Route path="/password-reset">
-            <div>Alteração de senha</div>
+            <UpdateUser />
           </Route>
 
           {/* <Route path="/make-habit">

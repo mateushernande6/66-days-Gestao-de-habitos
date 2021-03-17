@@ -5,22 +5,22 @@ import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import { ContentModal } from "./styles";
 import api from "../../../services/index";
 
-const RemoveGoals = ({ value, token }) => {
-  const deleteGoal = () => {
-    const previousProgress = JSON.parse(localStorage.getItem("goalProgress"));
+const updateGoal = ({ value, token }) => {
+  // const deleteGoal = () => {
+  //   const previousProgress = JSON.parse(localStorage.getItem("goalProgress"));
 
-    const newProgress = previousProgress.filter((elem) => elem.id !== value.id);
+  //   const newProgress = previousProgress.filter((elem) => elem.id !== value.id);
 
-    if (newProgress.length !== 0) {
-      localStorage.setItem("goalProgress", JSON.stringify(newProgress));
-    }
+  //   if (newProgress.length !== 0) {
+  //     localStorage.setItem("goalProgress", JSON.stringify(newProgress));
+  //   }
 
-    api
-      .delete(`/goals/${value.id}/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then(console.log(`${value.id} deletado`));
-  };
+  //   api
+  //     .patch(`/goals/${value.id}/`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then(console.log(`${value.id} deletado`));
+  // };
 
   return (
     <>

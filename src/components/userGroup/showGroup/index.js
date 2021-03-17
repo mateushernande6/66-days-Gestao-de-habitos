@@ -1,10 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import StandardModal from "../../modal";
 import CreateGoals from "../modalCreateGoals";
 import RemoveActivies from "../modalRemoveActivies";
 import RemoveGoals from "../modalRemoveGoals";
+import { addGoalProgressThunk } from "../../../store/modules/goalProgress/thunk";
+import { format } from "date-fns";
+import { FaTrashAlt } from "react-icons/fa";
 
 import {
   Details,
@@ -29,6 +33,12 @@ const ShowUserGroup = () => {
   const [groupInfo, setInfo] = useState(false);
   const user = localStorage.getItem("token");
   const userGroup = localStorage.getItem("userGroup") || "";
+  const [goals, setGoals] = useState("");
+  const [activities, setActivities] = useState("");
+  const dispatch = useDispatch();
+  const [token, setToken] = useState(() => {
+    return JSON.parse(localStorage.getItem("token")) || "";
+  });
 
   console.log(user);
   // useEffect(() => {
@@ -41,15 +51,24 @@ const ShowUserGroup = () => {
   //     });
   // }, []);
 
+  const updateGoal = (id) => {
+    const date = format(new Date(), "dd/MM/yyyy");
+
+    dispatch(addGoalProgressThunk(id, date, token, groupInfo));
+  };
+
   useEffect(() => {
-    console.log(userGroup);
+    // console.log(userGroup);
     if (userGroup !== "") {
       axios
         .get(`https://kabit-api.herokuapp.com/groups/${userGroup}/`)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setInfo(response.data);
-          console.log(groupInfo);
+          setGoals(response.data.goals);
+          setActivities(response.data.activities);
+          // console.log(groupInfo);
+          // console.log(goals, activities);
         });
     }
   }, []);
@@ -88,15 +107,37 @@ const ShowUserGroup = () => {
                           &#91;{value.difficulty}&#93;
                         </GoalDifficulty>
                         <GoalStatus>
-                          {value.difficulty ? (
-                            <i>In Progress</i>
+                          {value.achieved ? (
+                            <i>
+                              Completed
+                              {` ${value.how_much_achieved} / ${groupInfo.users.length}`}
+                            </i>
                           ) : (
-                            <i>Completed</i>
+                            <i>
+                              In Progress
+                              {` ${value.how_much_achieved} / ${groupInfo.users.length}`}
+                            </i>
                           )}
                         </GoalStatus>
                       </GoalInfo>
+                      <button onClick={() => updateGoal(value.id)}>Done</button>
+
                       <span>
-                        <RemoveGoals groupName={groupInfo.name} />
+                        {/* <StandardModal buttonTxt={<FaTrashAlt />}>
+                          <>
+                            <div>Delete Goal?</div>
+                            <div>{value.title}</div>
+                            <div>
+                              <button>Delete</button>
+                              <button>Back</button>
+                            </div>
+                          </>
+                        </StandardModal> */}
+                        <RemoveGoals
+                          groupName={groupInfo.name}
+                          value={value}
+                          token={token}
+                        />
                       </span>
                     </CardGoal>
                   ))}
@@ -105,7 +146,7 @@ const ShowUserGroup = () => {
             </InfoGoalsBorder>
             <InfoActiviesBorder>
               <InfoActivies>
-                <h5>Activies</h5>
+                <h5>Activities</h5>
 
                 <div>
                   {groupInfo &&
