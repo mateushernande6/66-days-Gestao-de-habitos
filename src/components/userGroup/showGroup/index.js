@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
+import StandardButton from "../../button";
 import StandardModal from "../../modal";
 import CreateGoals from "../modalCreateGoals";
 import RemoveActivies from "../modalRemoveActivies";
 import RemoveGoals from "../modalRemoveGoals";
+import { useDispatch } from "react-redux";
 
 import {
   Details,
@@ -25,11 +27,17 @@ import {
   ActiviesStatus,
   ActiviesTime,
 } from "./styles";
+import { HaveGroupThunk } from "../../../store/modules/haveGroup/thunks";
+import CreateActivies from "../modalCreateActivies";
 const ShowUserGroup = () => {
-  const [groupInfo, setInfo] = useState(false);
-  const user = localStorage.getItem("token");
-  const userGroup = localStorage.getItem("userGroup") || "";
+  const dispatch = useDispatch();
 
+  const [groupInfo, setInfo] = useState(false);
+  const user = JSON.parse(localStorage.getItem("token"));
+  const userGroup = JSON.parse(localStorage.getItem("userGroup")) || "";
+  let { user_id } = JSON.parse(localStorage.getItem("user_id"));
+
+  console.log(user_id);
   console.log(user);
   // useEffect(() => {
   //   axios
@@ -40,7 +48,16 @@ const ShowUserGroup = () => {
   //       console.log(userGroup);
   //     });
   // }, []);
-
+  const leaveGroup = () => {
+    axios
+      .patch(`https://kabit-api.herokuapp.com/users/${user_id}/`, {
+        group: null,
+      })
+      .then((response) => {
+        console.log(response.data);
+        dispatch(HaveGroupThunk(false));
+      });
+  };
   useEffect(() => {
     console.log(userGroup);
     if (userGroup !== "") {
@@ -62,13 +79,7 @@ const ShowUserGroup = () => {
             <InfoGroupName>
               <div>Group: {groupInfo && groupInfo.name}</div>
             </InfoGroupName>
-            <StandardModal
-              buttonTxt="Leave Group"
-              buttonHeight="30px"
-              buttonMargin="6px"
-            >
-              <CreateGroup />
-            </StandardModal>
+            <StandardButton onClick={leaveGroup} buttonTxt="Leave Group" />
             <Details>
               <div> Category: {groupInfo && groupInfo.category}</div>
               <div> Users: {groupInfo && groupInfo.users.length}</div>
@@ -114,7 +125,10 @@ const ShowUserGroup = () => {
                         <ActiviesInfo>
                           {value.title}
                           <ActiviesTime>
-                            Activity time: {value.realization_time}
+                            Activity time:
+                            {new Date(
+                              Date.parse(value.realization_time)
+                            ).toString()}
                           </ActiviesTime>
                           <ActiviesStatus>Waiting</ActiviesStatus>
                         </ActiviesInfo>
@@ -126,9 +140,7 @@ const ShowUserGroup = () => {
                     ))}
                 </div>
               </InfoActivies>
-              <StandardModal buttonColor="primary" buttonTxt="Create Activies">
-                <CreateGroup />
-              </StandardModal>
+              <CreateActivies />
             </InfoActiviesBorder>
           </MainInfo>
         </MainDiv>
