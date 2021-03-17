@@ -1,14 +1,11 @@
 import { Button } from "@material-ui/core";
+import { H1, H3, P, useStyles } from "./Style";
 import {
   Container,
-  ContainerCreateHabit,
-  Divider,
-  H1,
-  H3,
-  P,
-  useStyles,
-} from "./Style";
-import Menu from "../../components/Menu/index";
+  ContainerCreateCard,
+  CircleBottom,
+  CircleTop,
+} from "../../Assets/Layout-pattern-pages/Style";
 import { useHistory } from "react-router-dom";
 
 const CreateHabit = () => {
@@ -22,9 +19,9 @@ const CreateHabit = () => {
 
   return (
     <Container>
-      <P>What habit do you want to acquire?</P>
-      <Divider />
-      <ContainerCreateHabit>
+      <CircleTop />
+      <CircleBottom />
+      <ContainerCreateCard>
         <H1>You have no registered habits</H1>
         <H3> Start to register a habit right now</H3>
         <Button
@@ -34,7 +31,7 @@ const CreateHabit = () => {
         >
           Make a habit
         </Button>
-      </ContainerCreateHabit>
+      </ContainerCreateCard>
     </Container>
   );
 };

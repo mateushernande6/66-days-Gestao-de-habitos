@@ -11,7 +11,13 @@ import {
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Container, Form, Label, useStyles } from "./Style";
+import { Form, Label, useStyles } from "./Style";
+import {
+  Container,
+  ContainerCreateCard,
+  CircleBottom,
+  CircleTop,
+} from "../../Assets/Layout-pattern-pages/Style";
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -25,7 +31,7 @@ const RegisterHabit = () => {
   const classes = useStyles();
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
-  const [frequency, setFrequency] = useState("");
+  const [frequency, setFrequency] = useState("Daily");
   const [id, setId] = useState(0);
   const [token, setToken] = useState(() => {
     const localToken = localStorage.getItem("token") || "";
@@ -70,8 +76,10 @@ const RegisterHabit = () => {
   };
 
   return (
-    <div>
-      <Container>
+    <Container>
+      <CircleTop />
+      <CircleBottom />
+      <ContainerCreateCard>
         <Form onSubmit={handleSubmit(handleForm)}>
           <Label>What habit do you want to start?</Label>
           <TextField
@@ -122,30 +130,6 @@ const RegisterHabit = () => {
             </Select>
           </FormControl>
 
-          <FormControl required className={classes.formControl}>
-            <Label>Choose the frequency</Label>
-            <RadioGroup
-              className={classes.radioGrupDisplay}
-              value={frequency}
-              onChange={(e) => {
-                setFrequency(e.target.value);
-              }}
-            >
-              <FormControlLabel
-                value="daily"
-                control={<Radio />}
-                label="Daily"
-                className={classes.optionColorAndFont}
-              />
-              <FormControlLabel
-                value="choose"
-                control={<Radio />}
-                label="Choose the day of the week"
-                className={classes.optionColorAndFont}
-              />
-            </RadioGroup>
-          </FormControl>
-
           <Button
             type="submit"
             variant="outlined"
@@ -154,8 +138,8 @@ const RegisterHabit = () => {
             Create habit
           </Button>
         </Form>
-      </Container>
-    </div>
+      </ContainerCreateCard>
+    </Container>
   );
 };
 
