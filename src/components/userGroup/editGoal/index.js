@@ -5,7 +5,7 @@ import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import { ContentModal } from "./styles";
 import api from "../../../services/index";
 
-const editGoal = () => {
+const EditGoal = () => {
   // const deleteGoal = () => {
   //   const previousProgress = JSON.parse(localStorage.getItem("goalProgress"));
 
@@ -42,4 +42,4 @@ const editGoal = () => {
   );
 };
 
-export default editGoal;
+export default EditGoal;

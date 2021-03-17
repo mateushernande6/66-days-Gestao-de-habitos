@@ -10,7 +10,7 @@ import RemoveGoals from "../modalRemoveGoals";
 import { addGoalProgressThunk } from "../../../store/modules/goalProgress/thunk";
 import { format } from "date-fns";
 import { FaTrashAlt } from "react-icons/fa";
-import editGoal from "../../../components/userGroup/editGoals";
+import EditGoal from "../../../components/userGroup/editGoal";
 
 import {
   Details,
@@ -50,15 +50,6 @@ const ShowUserGroup = () => {
 
   console.log(user_id);
   console.log(user);
-  // useEffect(() => {
-  //   axios
-  //     .get(`https://kabit-api.herokuapp.com/users/${8}/`)
-  //     .then((response) => {
-  //       setGroup(response.data.group);
-  //       console.log(response.data);
-  //       console.log(userGroup);
-  //     });
-  // }, []);
 
   const updateGoal = (id) => {
     const date = format(new Date(), "dd/MM/yyyy");
@@ -134,18 +125,10 @@ const ShowUserGroup = () => {
                         </GoalStatus>
                       </GoalInfo>
                       <button onClick={() => updateGoal(value.id)}>Done</button>
-                      <editGoal />
                       <span>
-                        {/* <StandardModal buttonTxt={<FaTrashAlt />}>
-                          <>
-                            <div>Delete Goal?</div>
-                            <div>{value.title}</div>
-                            <div>
-                              <button>Delete</button>
-                              <button>Back</button>
-                            </div>
-                          </>
-                        </StandardModal> */}
+                        <EditGoal />
+                      </span>
+                      <span>
                         <RemoveGoals
                           groupName={groupInfo.name}
                           value={value}
