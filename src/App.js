@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* {isLogged && <Menu />} */}
+      {isLogged && <Menu />}
       <Routes />
     </div>
   );
