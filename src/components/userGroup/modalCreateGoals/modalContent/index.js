@@ -13,6 +13,7 @@ import {
 import { DifficultyDiv, InputDiv, ModalDiv, ErrorMessage } from "./styles";
 
 import axios from "axios";
+import { ToastAnimated, showToast } from "../../../toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +42,8 @@ const ContentCreateGoal = () => {
     const group = localStorage.getItem("userGroup") || "";
     return JSON.parse(group);
   });
+  const toastify = () => showToast({ type: "create", message: "Goal Created" });
+
   const [token, setToken] = useState(() => {
     const localToken = localStorage.getItem("token") || "";
     return JSON.parse(localToken);
@@ -76,6 +79,7 @@ const ContentCreateGoal = () => {
   useEffect(() => {});
   return (
     <ModalDiv>
+      <ToastAnimated />
       <form onSubmit={handleSubmit(handleData)}>
         <section>
           <h1>Create Goal</h1>
@@ -120,6 +124,9 @@ const ContentCreateGoal = () => {
             className={classes.root}
             color="primary"
             variant="contained"
+            onClick={() => {
+              toastify();
+            }}
           >
             Create a Goal
           </Button>
