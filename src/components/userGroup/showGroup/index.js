@@ -145,16 +145,9 @@ const ShowUserGroup = () => {
                       <button onClick={() => updateGoal(value.id)}>Done</button>
                       <editGoal />
                       <span>
-                        {/* <StandardModal buttonTxt={<FaTrashAlt />}>
-                          <>
-                            <div>Delete Goal?</div>
-                            <div>{value.title}</div>
-                            <div>
-                              <button>Delete</button>
-                              <button>Back</button>
-                            </div>
-                          </>
-                        </StandardModal> */}
+                        <EditGoal value={value} token={token} />
+                      </span>
+                      <span>
                         <RemoveGoals
                           groupName={groupInfo.name}
                           value={value}

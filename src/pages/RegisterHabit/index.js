@@ -117,8 +117,8 @@ const RegisterHabit = () => {
             >
               <MenuItem value="easy">Easy</MenuItem>
               <MenuItem value="medium">Medium</MenuItem>
-              <MenuItem value="Hard">Hard</MenuItem>
-              <MenuItem value="Very Hard">Very Hard</MenuItem>
+              <MenuItem value="hard">Hard</MenuItem>
+              <MenuItem value="very Hard">Very Hard</MenuItem>
             </Select>
           </FormControl>
 

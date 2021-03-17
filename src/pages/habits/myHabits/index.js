@@ -6,6 +6,7 @@ import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import HabitCard from "../../../components/HabitCard";
 import { useHistory } from "react-router-dom";
+import { format } from "date-fns";
 
 const useStyles = makeStyles({
   root: {
@@ -57,6 +58,18 @@ const MyHabits = () => {
     }
   };
 
+  const isUpgradeableFunction = (arr) => {
+    const today = format(new Date(), "dd/MM/yyyy");
+
+    const isUpdate = arr.filter((elem) => elem === today).length > 0;
+
+    if (isUpdate) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <StyledContainer>
       <StyledContentBox>
@@ -91,13 +104,25 @@ const MyHabits = () => {
         <main>
           {getHabits &&
             getHabits
+              .sort(function (a, b) {
+                return a.updates.length < b.updates.length
+                  ? -1
+                  : a.updates.length > b.updates.length
+                  ? 1
+                  : 0;
+              })
               .filter(
                 (elem) =>
                   handleCategoryFilter(elem, filterCategory) &&
                   handleStatusFilter(elem, filterStatus)
               )
               .map((elem, index) => (
-                <HabitCard key={index} habit={elem} token={token} />
+                <HabitCard
+                  key={index}
+                  habit={elem}
+                  token={token}
+                  updates={isUpgradeableFunction(elem.updates)}
+                />
               ))}
         </main>
       </StyledContentBox>

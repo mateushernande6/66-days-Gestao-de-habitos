@@ -21,16 +21,18 @@ export const Container = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1920px;
-  height: 753px;
+  width: 100vw;
+  height: 100vh;
   background-image: url(${login3});
   background-position: center;
+  background-size: cover;
   animation-name: ${transitionBackground};
   animation-duration: 20s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-timing-function: cubic-bezier(0.37, 0, 0.58, 1);
   animation-delay: 2s;
+  overflow-y: hidden;
 `;
 
 export const ContainerTitle = styled.div`
