@@ -61,23 +61,31 @@ export const ContainerGraphic = styled.div`
     }
   }
   .graphic {
-    width: 40%;
+    width: 30%;
     box-sizing: border-box;
     margin-top: 60px;
+    height: 250px;
   }
   .infos {
-    width: 40%;
+    width: 55%;
     box-sizing: border-box;
     margin-top: 40px;
+    height: 300px;
+    border: 1px solid black;
+    padding: 10px;
+    .titlePanel {
+      margin-bottom: 8px;
+    }
   }
 
   .fixGraphic {
-    position: relative;
+    position: absolute;
     color: #8080804a;
+    right: 112px;
   }
   .theGraphic {
-    position: relative;
-    bottom: 205px;
+    position: absolute;
+    right: 112px;
     color: #0db9eeb5;
   }
 `;

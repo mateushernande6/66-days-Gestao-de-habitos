@@ -8,6 +8,7 @@ import {
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import GetHabits from "../../components/getHabits";
 
 const Dashborad = () => {
   return (
@@ -24,11 +25,14 @@ const Dashborad = () => {
         <div className="containerTitle">
           <h2>Habits</h2>
         </div>
-        <div className="infos">infos</div>
+        <div className="infos">
+          <div className="titlePanel">Habits panel</div>
+          <GetHabits />
+        </div>
         <div className="graphic">
           <CircularProgress
             className="fixGraphic"
-            variant="static"
+            variant="determinate"
             value={100}
             size={200}
             thickness={6}
@@ -41,8 +45,8 @@ const Dashborad = () => {
             thickness={6}
           />
           <Box
-            top={-136}
-            left={0}
+            top={62}
+            left={30}
             bottom={0}
             right={0}
             position="relative"
