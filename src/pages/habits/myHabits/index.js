@@ -33,7 +33,6 @@ const MyHabits = () => {
   });
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
-  // const [anotherFilterCategory, setAnotherFilterCategory] = useState("all");
   const getHabits = useSelector((state) => state.getHabits);
 
   useEffect(() => {
@@ -116,38 +115,3 @@ const MyHabits = () => {
 };
 
 export default MyHabits;
-
-{
-  /* <StyledContentBox>
-  <header>
-    <p>Today's Habits</p>
-    <select
-      name="Category"
-      id="level"
-      value={anotherFilterCategory}
-      onChange={(e) => setAnotherFilterCategory(e.target.value)}
-    >
-      <option value="all">All</option>
-      <option value="career">Career</option>
-      <option value="food">Food</option>
-      <option value="health">Health</option>
-      <option value="study">Study</option>
-    </select>
-  </header>
-  <main>
-    {getHabits &&
-      getHabits
-        .filter((elem) =>
-          handleCategoryFilter(elem, anotherFilterCategory)
-        )
-        .map((elem, index) => (
-          <HabitCard
-            key={index}
-            habit={elem}
-            panel={false}
-            token={token}
-          />
-        ))}
-  </main>
-</StyledContentBox> */
-}
