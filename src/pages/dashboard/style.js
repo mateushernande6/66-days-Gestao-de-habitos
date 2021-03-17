@@ -65,6 +65,13 @@ export const ContainerGraphic = styled.div`
     box-sizing: border-box;
     margin-top: 60px;
     height: 250px;
+    min-width: 300px;
+    position: relative;
+    .progressTxt {
+      position: absolute;
+      top: 64px;
+      right: 126px;
+    }
   }
   .infos {
     width: 55%;
@@ -81,11 +88,11 @@ export const ContainerGraphic = styled.div`
   .fixGraphic {
     position: absolute;
     color: #8080804a;
-    right: 112px;
+    right: 80px;
   }
   .theGraphic {
     position: absolute;
-    right: 112px;
+    right: 80px;
     color: #0db9eeb5;
   }
 `;

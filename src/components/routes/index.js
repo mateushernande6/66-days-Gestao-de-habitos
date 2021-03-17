@@ -6,7 +6,6 @@ import Habits from "../../pages/habits";
 // import CreateHabit from "../../pages/CreateHabit";
 import RegisterHabit from "../../pages/RegisterHabit";
 import GroupPage from "../../pages/GroupPage";
-import Dashboard from "../../pages/dashboard";
 import Dashborad from "../../pages/dashboard";
 
 const Routes = () => {

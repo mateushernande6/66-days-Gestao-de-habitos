@@ -2,9 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ContainerCard, Card } from "./style";
 import StandardModal from "../modal";
+import InfoModal from "./infoModal";
 
 const GetHabits = () => {
   const [habits, setHabits] = useState([]);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -20,7 +22,7 @@ const GetHabits = () => {
     <>
       <ContainerCard>
         {habits.map((item, index) => (
-          <Card>
+          <Card key={index}>
             <div>
               <h4>{item.title}</h4>
               <p>category: {item.category}</p>
@@ -34,7 +36,9 @@ const GetHabits = () => {
                 buttonTxt="Info"
                 buttonHeight={40}
                 buttonMargin={20}
-              ></StandardModal>
+              >
+                <InfoModal />
+              </StandardModal>
             </div>
           </Card>
         ))}
