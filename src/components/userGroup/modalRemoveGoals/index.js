@@ -38,7 +38,6 @@ const RemoveGoals = ({ value, token }) => {
           <div>{value.title}</div>
           <div>
             <StandardButton onClick={() => deleteGoal()} buttonTxt="DELETE" />
-            <StandardButton buttonTxt="BACK" />
           </div>
         </ContentModal>
       </StandardModal>

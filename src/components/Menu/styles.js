@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BsPower } from "react-icons/bs";
 
 export const StyledMenu = styled.div`
   width: 10vw;
@@ -29,5 +30,11 @@ export const StyledMenu = styled.div`
       display: flex;
       justify-content: center;
     }
+  }
+`;
+
+export const BsPowerStyled = styled(BsPower)`
+  &:hover {
+    cursor: pointer;
   }
 `;
