@@ -126,7 +126,7 @@ const ShowUserGroup = () => {
                       </GoalInfo>
                       <button onClick={() => updateGoal(value.id)}>Done</button>
                       <span>
-                        <EditGoal />
+                        <EditGoal value={value} token={token} />
                       </span>
                       <span>
                         <RemoveGoals
