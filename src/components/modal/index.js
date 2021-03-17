@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    display: "flex",
+    flexFlow: "column wrap",
+    alignItems: "center",
   },
 }));
 
@@ -27,7 +30,6 @@ const StandardModal = ({
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => {
     setOpen(true);
   };
@@ -60,7 +62,17 @@ const StandardModal = ({
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>{children}</div>
+          <div className={classes.paper}>
+            {children}
+            <Buttons
+              style={{ margin: "0 auto" }}
+              type="button"
+              buttonTxt="Close"
+              onClick={handleClose}
+              height={buttonHeight}
+              margin={buttonMargin}
+            />
+          </div>
         </Fade>
       </Modal>
     </div>

@@ -1,7 +1,9 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 import {
   Button,
   Select,
@@ -10,6 +12,7 @@ import {
   InputLabel,
   makeStyles,
 } from "@material-ui/core";
+import { HaveGroupThunk } from "../../../../store/modules/haveGroup/thunks";
 
 import { CategoryDiv, InputDiv, ModalDiv, ErrorMessage } from "./styles";
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +38,10 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateGroup = () => {
   const classes = useStyles();
+
   const [category, setCategory] = useState("");
+  const dispatch = useDispatch();
+  const token = JSON.parse(localStorage.getItem("token"));
 
   const handleChange = (event) => {
     setCategory(event.target.value);
@@ -46,16 +52,39 @@ const CreateGroup = () => {
 
     description: yup.string().max(60).required("Max 60 characters"),
   });
-  const [save, setSave] = useState([{}]);
-
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
-  const handleData = (data) => {
+  const handleData = async (data) => {
     console.log(data);
-    data.category = category;
-    setSave(data);
-    console.log(save);
+    const send = {};
+    send.name = data.name;
+    send.description = data.description;
+    send.category = category;
+
+    await axios
+      .post("https://kabit-api.herokuapp.com/groups/", send, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.id);
+
+        axios
+          .post(
+            `https://kabit-api.herokuapp.com/groups/${response.data.id}/subscribe/`,
+            null,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+          .then((response) => {
+            console.log(response);
+            dispatch(HaveGroupThunk(true));
+          })
+          .catch((err) => console.log(err.response));
+      })
+      .catch((err) => console.log(err.response));
   };
 
   return (
@@ -121,11 +150,6 @@ const CreateGroup = () => {
           </Button>
         </section>
       </form>
-      <div>
-        Name:{save.name}
-        Description:{save.description}
-        Category: {save.category}
-      </div>
     </ModalDiv>
   );
 };

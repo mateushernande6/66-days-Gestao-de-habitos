@@ -19,7 +19,7 @@ export const addHabitProgressThunk = (id, date, token) => async (
   newHabit.id = id;
 
   if (previousObj.length === 0) {
-    newHabit.update = date;
+    newHabit.update = [date];
   } else {
     newHabit.update = [...previousObj[0].update, date];
   }
@@ -27,6 +27,8 @@ export const addHabitProgressThunk = (id, date, token) => async (
   newList.push(newHabit);
 
   localStorage.setItem("habitProgress", JSON.stringify(newList));
+
+  dispatch(addHabitProgress(newList));
 
   // Atualiza na API
   const response = await axios.get(
@@ -45,7 +47,4 @@ export const addHabitProgressThunk = (id, date, token) => async (
   axios.patch(`https://kabit-api.herokuapp.com/habits/${id}/`, response.data, {
     headers: { Authorization: `Bearer ${token}` },
   });
-
-  // Constrói o objeto local com o array de datas de update
-  dispatch(addHabitProgress(newList));
 };

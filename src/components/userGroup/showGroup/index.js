@@ -1,8 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
+import StandardButton from "../../button";
 import StandardModal from "../../modal";
+import CreateGoals from "../modalCreateGoals";
+import RemoveActivies from "../modalRemoveActivies";
 import RemoveGoals from "../modalRemoveGoals";
+import { addGoalProgressThunk } from "../../../store/modules/goalProgress/thunk";
+import { format } from "date-fns";
+import { FaTrashAlt } from "react-icons/fa";
+import EditGoal from "../../../components/userGroup/editGoal";
 
 import {
   Details,
@@ -23,33 +31,58 @@ import {
   ActiviesStatus,
   ActiviesTime,
 } from "./styles";
+import { HaveGroupThunk } from "../../../store/modules/haveGroup/thunks";
+import CreateActivies from "../modalCreateActivies";
 const ShowUserGroup = () => {
-  const [userGroup, setGroup] = useState("");
-  const [groupInfo, setInfo] = useState(false);
-  const user = localStorage.getItem("token");
-  console.log(user);
-  // useEffect(() => {
-  //   axios
-  //     .get(`https://kabit-api.herokuapp.com/users/${8}/`)
-  //     .then((response) => {
-  //       setGroup(response.data.group);
-  //       console.log(response.data);
-  //       console.log(userGroup);
-  //     });
-  // }, []);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(userGroup);
-    // if (userGroup !== "") {
+  const [groupInfo, setInfo] = useState(false);
+  // const user = localStorage.getItem("token");
+  // const userGroup = localStorage.getItem("userGroup") || "";
+  const [goals, setGoals] = useState("");
+  const [activities, setActivities] = useState("");
+  const [token, setToken] = useState(() => {
+    return JSON.parse(localStorage.getItem("token")) || "";
+  });
+  const user = JSON.parse(localStorage.getItem("token"));
+  const userGroup = JSON.parse(localStorage.getItem("userGroup")) || "";
+  let { user_id } = JSON.parse(localStorage.getItem("user_id"));
+
+  console.log(user_id);
+  console.log(user);
+
+  const updateGoal = (id) => {
+    const date = format(new Date(), "dd/MM/yyyy");
+
+    dispatch(addGoalProgressThunk(id, date, token, groupInfo));
+  };
+
+  const leaveGroup = () => {
     axios
-      .get(`https://kabit-api.herokuapp.com/groups/${26}/`)
+      .patch(`https://kabit-api.herokuapp.com/users/${user_id}/`, {
+        group: null,
+      })
       .then((response) => {
         console.log(response.data);
-        setInfo(response.data);
-        console.log(groupInfo);
+        dispatch(HaveGroupThunk(false));
       });
-    // }
+  };
+  useEffect(() => {
+    // console.log(userGroup);
+    if (userGroup !== "") {
+      axios
+        .get(`https://kabit-api.herokuapp.com/groups/${userGroup}/`)
+        .then((response) => {
+          // console.log(response.data);
+          setInfo(response.data);
+          setGoals(response.data.goals);
+          setActivities(response.data.activities);
+          // console.log(groupInfo);
+          // console.log(goals, activities);
+        });
+    }
   }, []);
+
   return (
     <>
       {groupInfo && (
@@ -58,13 +91,7 @@ const ShowUserGroup = () => {
             <InfoGroupName>
               <div>Group: {groupInfo && groupInfo.name}</div>
             </InfoGroupName>
-            <StandardModal
-              buttonTxt="Leave Group"
-              buttonHeight="30px"
-              buttonMargin="6px"
-            >
-              <CreateGroup />
-            </StandardModal>
+            <StandardButton onClick={leaveGroup} buttonTxt="Leave Group" />
             <Details>
               <div> Category: {groupInfo && groupInfo.category}</div>
               <div> Users: {groupInfo && groupInfo.users.length}</div>
@@ -84,26 +111,38 @@ const ShowUserGroup = () => {
                           &#91;{value.difficulty}&#93;
                         </GoalDifficulty>
                         <GoalStatus>
-                          {value.difficulty ? (
-                            <i>In Progress</i>
+                          {value.achieved ? (
+                            <i>
+                              Completed
+                              {` ${value.how_much_achieved} / ${groupInfo.users.length}`}
+                            </i>
                           ) : (
-                            <i>Completed</i>
+                            <i>
+                              In Progress
+                              {` ${value.how_much_achieved} / ${groupInfo.users.length}`}
+                            </i>
                           )}
                         </GoalStatus>
                       </GoalInfo>
+                      <button onClick={() => updateGoal(value.id)}>Done</button>
                       <span>
-                        <RemoveGoals />
+                        <EditGoal />
+                      </span>
+                      <span>
+                        <RemoveGoals
+                          groupName={groupInfo.name}
+                          value={value}
+                          token={token}
+                        />
                       </span>
                     </CardGoal>
                   ))}
               </InfoGoals>
-              <StandardModal buttonColor="primary" buttonTxt="Create Goals">
-                <CreateGroup />
-              </StandardModal>
+              <CreateGoals />
             </InfoGoalsBorder>
             <InfoActiviesBorder>
               <InfoActivies>
-                <h5>Activies</h5>
+                <h5>Activities</h5>
 
                 <div>
                   {groupInfo &&
@@ -112,21 +151,26 @@ const ShowUserGroup = () => {
                         <ActiviesInfo>
                           {value.title}
                           <ActiviesTime>
-                            Activity time: {value.realization_time}
+                            Activity time:
+                            {new Date(
+                              Date.parse(value.realization_time)
+                            ).toString()}
                           </ActiviesTime>
                           <ActiviesStatus>Waiting</ActiviesStatus>
                         </ActiviesInfo>
 
                         <span>
-                          <RemoveGoals />
+                          <RemoveActivies
+                            groupName={groupInfo.name}
+                            value={value}
+                            token={token}
+                          />
                         </span>
                       </CardActivies>
                     ))}
                 </div>
               </InfoActivies>
-              <StandardModal buttonColor="primary" buttonTxt="Create Activies">
-                <CreateGroup />
-              </StandardModal>
+              <CreateActivies />
             </InfoActiviesBorder>
           </MainInfo>
         </MainDiv>
