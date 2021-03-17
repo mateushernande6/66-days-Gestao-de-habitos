@@ -3,18 +3,25 @@ import StandardButton from "../../button";
 import { FaTrashAlt } from "react-icons/fa";
 import { ContentModal } from "./styles";
 import api from "../../../services/index";
+import { ToastAnimated, showToast } from "../../toastify";
 
 const RemoveActivities = ({ value, token }) => {
+  const toastify = () =>
+    showToast({ type: "delete", message: "Activity Deleted" });
+
   const deleteActivity = () => {
     api
       .delete(`/activities/${value.id}/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(console.log(`${value.id} deletado`));
+      .then(() => {
+        console.log(`${value.id} deletado`);
+      });
   };
 
   return (
     <>
+      <ToastAnimated />
       <StandardModal
         buttonColor="default"
         buttonTxt={<FaTrashAlt />}
@@ -26,7 +33,10 @@ const RemoveActivities = ({ value, token }) => {
           <div>{value.title}</div>
           <div>
             <StandardButton
-              onClick={() => deleteActivity()}
+              onClick={() => {
+                deleteActivity();
+                toastify();
+              }}
               buttonTxt="DELETE"
             />
             <StandardButton buttonTxt="BACK" />

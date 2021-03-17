@@ -11,7 +11,8 @@ import { addGoalProgressThunk } from "../../../store/modules/goalProgress/thunk"
 import { format } from "date-fns";
 import { FaTrashAlt } from "react-icons/fa";
 import EditGoal from "../../../components/userGroup/editGoal";
-
+import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Details,
   InfoGroup,
@@ -33,6 +34,8 @@ import {
 } from "./styles";
 import { HaveGroupThunk } from "../../../store/modules/haveGroup/thunks";
 import CreateActivies from "../modalCreateActivies";
+import { ToastAnimated, showToast } from "../../toastify";
+
 const ShowUserGroup = () => {
   const dispatch = useDispatch();
 
@@ -50,6 +53,15 @@ const ShowUserGroup = () => {
 
   console.log(user_id);
   console.log(user);
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://kabit-api.herokuapp.com/users/${8}/`)
+  //     .then((response) => {
+  //       setGroup(response.data.group);
+  //       console.log(response.data);
+  //       console.log(userGroup);
+  //     });
+  // }, []);
 
   const updateGoal = (id) => {
     const date = format(new Date(), "dd/MM/yyyy");
@@ -78,20 +90,26 @@ const ShowUserGroup = () => {
           setGoals(response.data.goals);
           setActivities(response.data.activities);
           // console.log(groupInfo);
-          // console.log(goals, activities);
+          // console.log(goals, activities);]
         });
     }
   }, []);
 
   return (
     <>
+      <ToastAnimated />
       {groupInfo && (
         <MainDiv>
           <InfoGroup>
             <InfoGroupName>
               <div>Group: {groupInfo && groupInfo.name}</div>
             </InfoGroupName>
-            <StandardButton onClick={leaveGroup} buttonTxt="Leave Group" />
+            <StandardButton
+              onClick={() => {
+                leaveGroup();
+              }}
+              buttonTxt="Leave Group"
+            />
             <Details>
               <div> Category: {groupInfo && groupInfo.category}</div>
               <div> Users: {groupInfo && groupInfo.users.length}</div>
@@ -125,10 +143,18 @@ const ShowUserGroup = () => {
                         </GoalStatus>
                       </GoalInfo>
                       <button onClick={() => updateGoal(value.id)}>Done</button>
+                      <editGoal />
                       <span>
-                        <EditGoal />
-                      </span>
-                      <span>
+                        {/* <StandardModal buttonTxt={<FaTrashAlt />}>
+                          <>
+                            <div>Delete Goal?</div>
+                            <div>{value.title}</div>
+                            <div>
+                              <button>Delete</button>
+                              <button>Back</button>
+                            </div>
+                          </>
+                        </StandardModal> */}
                         <RemoveGoals
                           groupName={groupInfo.name}
                           value={value}
@@ -173,6 +199,7 @@ const ShowUserGroup = () => {
               <CreateActivies />
             </InfoActiviesBorder>
           </MainInfo>
+          ;
         </MainDiv>
       )}
     </>

@@ -4,8 +4,10 @@ import { FaTrashAlt } from "react-icons/fa";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import { ContentModal } from "./styles";
 import api from "../../../services/index";
+import { ToastAnimated, showToast } from "../../toastify";
 
 const RemoveGoals = ({ value, token }) => {
+  const toastify = () => showToast({ type: "delete", message: "Goal Deleted" });
   const deleteGoal = () => {
     const previousProgress = JSON.parse(localStorage.getItem("goalProgress"));
     let newProgress = "";
@@ -27,6 +29,8 @@ const RemoveGoals = ({ value, token }) => {
 
   return (
     <>
+      <ToastAnimated />
+
       <StandardModal
         buttonColor="default"
         buttonTxt={<FaTrashAlt />}
@@ -37,8 +41,13 @@ const RemoveGoals = ({ value, token }) => {
           <div>Delete Goals?</div>
           <div>{value.title}</div>
           <div>
-            <StandardButton onClick={() => deleteGoal()} buttonTxt="DELETE" />
-            <StandardButton buttonTxt="BACK" />
+            <StandardButton
+              onClick={() => {
+                toastify();
+                deleteGoal();
+              }}
+              buttonTxt="DELETE"
+            />
           </div>
         </ContentModal>
       </StandardModal>
