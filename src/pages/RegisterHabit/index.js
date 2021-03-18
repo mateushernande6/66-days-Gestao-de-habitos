@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { ToastAnimated, showToast } from "../../components/toastify";
 
 // aqui
 import { useDispatch } from "react-redux";
@@ -35,6 +36,9 @@ const RegisterHabit = () => {
 
   // aqui
   const dispatch = useDispatch();
+
+  const toastify = () =>
+    showToast({ type: "create", message: "Habit created" });
 
   useEffect(() => {
     const { user_id } = jwt_decode(token);
@@ -71,6 +75,8 @@ const RegisterHabit = () => {
 
   return (
     <div>
+      <ToastAnimated />
+
       <Container>
         <Form onSubmit={handleSubmit(handleForm)}>
           <Label>What habit do you want to start?</Label>
