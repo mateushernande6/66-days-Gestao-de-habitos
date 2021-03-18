@@ -1,96 +1,57 @@
 import styled, { keyframes } from "styled-components";
+import checklist from "../../images/checklist.jpg";
 
 const toRight = keyframes`
   0%{
-    left:0;
-    top:-266px;
+    left: 3vw;
+    top: 2vh;
   }
   25%{
-    left:782px;
-    top:-266px;
+    left:65vw;
+    top: 2vh;
   }
   50%{
-    left:782px;
-    top:173px;
+    left:65vw;
+    top:48vh;
   }
   75%{
-    left:0;
-    top:173px;
+    left:3vw;
+    top:48vh;
   }
   100%{
-    left:0;
-    top:-266px;
+    left: 3vw;
+    top: 2vh;
   }
 `;
 
 const toLeft = keyframes`
-  0%{
-    right:0;
-    top:173px;
+ 0%{
+    right:3vw;
+    bottom:2vh;
   }
   25%{
-    right:782px;
-    top:173px;
+    right:65vw;
+    bottom: 2vh;
   }
   50%{
-    right:782px;
-    top:-266px;
+    right:65vw;
+    bottom:48vh;
   }
   75%{
-    right:0px;
-    top:-266px;
+    right:3vw;
+    bottom:48vh;
   }
   100%{
-    right:0;
-    top:173px;
-  }
-`;
-
-const colors1 = keyframes`
-  0%{
-    background-color: rgba(255, 220, 20, 0.65);
-  }
-  20%{
-    background-color: rgba(172, 245, 27, 0.65);
-  }
-  40%{
-    background-color: rgba(61, 242, 227, 0.65);
-  }
-  60%{
-    background-color: rgba(165, 53, 240, 0.65);
-  }
-  80%{
-    background-color: rgba(245, 49, 160, 0.65);
-  }
-  100%{
-    background-color: rgba(240, 19, 23, 0.65);
-  }
-`;
-
-const colors2 = keyframes`
-  0%{
-    background-color: rgba(245, 49, 160, 0.65);
-  }
-  20%{
-    background-color: rgba(165, 53, 240, 0.65);
-  }
-  40%{
-    background-color: rgba(61, 242, 227, 0.65);
-  }
-  60%{
-    background-color: rgba(172, 245, 27, 0.65);
-  }
-  80%{
-    background-color: rgba(255, 220, 20, 0.65);
-  }
-  100%{
-    background-color: rgba(240, 19, 23, 0.65);
+    right: 3vw;
+    bottom: 2vh;
   }
 `;
 
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  background-image: url(${checklist});
+  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,16 +60,16 @@ export const Container = styled.div`
 
 export const CircleTop = styled.div`
   border-radius: 100%;
-  width: 578px;
-  height: 578px;
   position: absolute;
-  left: 0;
-  top: -266px;
+  left: 3vw;
+  top: 2vh;
+  width: 378px;
+  height: 378px;
   border: solid 1px rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(143, 194, 193, 0.3);
   background-clip: padding-box;
   backdrop-filter: blur(15px);
-  animation-name: ${toRight}, ${colors2};
+  animation-name: ${toRight};
   animation-iteration-count: infinite;
   animation-duration: 60s;
   animation-direction: normal, alternate;
@@ -118,15 +79,16 @@ export const CircleTop = styled.div`
 
 export const CircleBottom = styled.div`
   border-radius: 100%;
-  width: 578px;
-  height: 578px;
   position: absolute;
-  right: 0;
-  top: 173px;
-  border: solid 1px rgba(255, 255, 255, 0.3);
+  right: 3vw;
+  bottom: 2vh;
+  width: 378px;
+  height: 378px;
+  border: solid 1px rgba(255, 255, 255, 0.1);
+  background: rgba(143, 194, 193, 0.3);
   background-clip: padding-box;
   backdrop-filter: blur(15px);
-  animation-name: ${toLeft}, ${colors1};
+  animation-name: ${toLeft};
   animation-iteration-count: infinite;
   animation-duration: 60s;
   animation-direction: normal, alternate;
@@ -145,5 +107,5 @@ export const ContainerCreateCard = styled.div`
   border-radius: 10px;
   box-shadow: 2px 2px 20px lightgray;
   background-color: white;
-  position: relative;
+  position: absolute;
 `;
