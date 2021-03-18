@@ -1,27 +1,36 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ContainerCard, Card } from "./style";
-import StandardModal from "../modal";
-import InfoModal from "./infoModal";
+import { useSelector, useDispatch } from "react-redux";
+import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
+import TransitionsModal from "../Modal";
+import { Button } from "@material-ui/core";
+import ModalDashboard from "../modalDashboard";
 
 const GetHabits = () => {
-  const [habits, setHabits] = useState([]);
+  const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(0);
-
+  const [token, setToken] = useState(() => {
+    return JSON.parse(localStorage.getItem("token")) || "";
+  });
+  const dispatch = useDispatch();
+  const getHabits = useSelector((state) => state.getHabits) || [];
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    axios
-      .get("https://kabit-api.herokuapp.com/habits/personal/", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => setHabits(response.data));
+    dispatch(getHabitsThunk(token));
   }, []);
 
-  console.log(habits);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <>
-      <ContainerCard>
-        {habits.map((item, index) => (
+    <ContainerCard>
+      {getHabits.map((item, index) => (
+        <>
           <Card key={index}>
             <div>
               <h4>{item.title}</h4>
@@ -32,18 +41,19 @@ const GetHabits = () => {
               </p>
             </div>
             <div>
-              <StandardModal
-                buttonTxt="Info"
-                buttonHeight={40}
-                buttonMargin={20}
+              <Button
+                className="btnInfo"
+                variant="contained"
+                onClick={handleOpen}
               >
-                <InfoModal />
-              </StandardModal>
+                Info
+              </Button>
             </div>
           </Card>
-        ))}
-      </ContainerCard>
-    </>
+          <ModalDashboard open={open} handleClose={handleClose} habit={item} />
+        </>
+      ))}
+    </ContainerCard>
   );
 };
 export default GetHabits;

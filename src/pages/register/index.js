@@ -1,7 +1,18 @@
 import axios from "axios";
-import logo from "../../images/66_days-removebg-preview.png";
+import logo from "../../images/66-days-logo.png";
 import { TextField, Button } from "@material-ui/core";
-import { DivLogo, DivButton, ErrorMessage, BackLogin } from "./style";
+import {
+  DivLogo,
+  DivButton,
+  ErrorMessage,
+  BackLogin,
+  Container,
+  Img,
+  ContainerRegister,
+  ContainerTitle,
+  H1,
+  H2,
+} from "./style";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -43,52 +54,60 @@ const Register = () => {
   };
 
   return (
-    <>
-      <DivLogo>
-        <img src={logo} />
-      </DivLogo>
-      <form onSubmit={handleSubmit(submitHandle)}>
-        <div>
-          <TextField
-            helperText={errors.username?.message}
-            inputRef={register}
-            name="username"
-            label="User name"
-          />
-        </div>
-        <div>
-          <TextField
-            helperText={errors.email?.message}
-            inputRef={register}
-            name="email"
-            label="E-mail"
-          />
-        </div>
-        <div>
-          <TextField
-            helperText={errors.password?.message}
-            inputRef={register}
-            name="password"
-            label="Password"
-          />
-        </div>
-        <div>
-          <TextField
-            helperText={errors.confirmPassword?.message}
-            inputRef={register}
-            name="confirmPassword"
-            label="Confirm password "
-          />
-        </div>
-        <DivButton>
-          {err === 400 && <ErrorMessage>username already exists</ErrorMessage>}
-          <Button type="submit" className="registerBtn" variant="contained">
-            Sign up
-          </Button>
-        </DivButton>
-      </form>
-      <BackLogin onClick={() => history.push("/")}>Login</BackLogin>
-    </>
+    <Container>
+      <ContainerTitle>
+        <H1>Believe that you can,</H1>
+        <H1>so you're already</H1>
+        <H1>halfway there.</H1>
+        <H2>- Theodore Roosevelt</H2>
+      </ContainerTitle>
+      <ContainerRegister>
+        <Img src={logo} />
+        <form onSubmit={handleSubmit(submitHandle)}>
+          <div>
+            <TextField
+              helperText={errors.username?.message}
+              inputRef={register}
+              name="username"
+              label="User name"
+            />
+          </div>
+          <div>
+            <TextField
+              helperText={errors.email?.message}
+              inputRef={register}
+              name="email"
+              label="E-mail"
+            />
+          </div>
+          <div>
+            <TextField
+              helperText={errors.password?.message}
+              inputRef={register}
+              name="password"
+              label="Password"
+            />
+          </div>
+          <div>
+            <TextField
+              helperText={errors.confirmPassword?.message}
+              inputRef={register}
+              name="confirmPassword"
+              label="Confirm password "
+            />
+          </div>
+          <DivButton>
+            {err === 400 && (
+              <ErrorMessage>username already exists</ErrorMessage>
+            )}
+            <Button type="submit" className="registerBtn" variant="contained">
+              Sign up
+            </Button>
+          </DivButton>
+        </form>
+        <BackLogin onClick={() => history.push("/")}>Login</BackLogin>
+      </ContainerRegister>
+    </Container>
   );
 };
 export default Register;

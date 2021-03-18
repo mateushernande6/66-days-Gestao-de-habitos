@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  margin-left: 5vw;
+`;
+
 export const HeaderDashboard = styled.div`
   width: 80vw;
   padding: 5px;

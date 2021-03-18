@@ -4,6 +4,7 @@ import {
   DashTitle,
   UserInfo,
   ContainerGraphic,
+  Container,
 } from "./style";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
@@ -14,7 +15,7 @@ import { useState, useEffect } from "react";
 const Dashborad = () => {
   const [habits, setHabits] = useState([]);
   const [progress, setProgress] = useState(0);
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -32,17 +33,18 @@ const Dashborad = () => {
           initialValue
         );
         setProgress(Math.round(theProgress / qnt));
+        setUserInfo(JSON.parse(localStorage.getItem("userGroup")));
       });
   }, []);
-  console.log(userInfo);
+
   return (
-    <>
+    <Container>
       <DashTitle>Dashboard</DashTitle>
       <HeaderDashboard>
         <UserInfo>User: Mateus de souza hernandes</UserInfo>
         <InfoHeader>
           <div>Habits: {habits.length}</div>
-          <div>Groups: {userInfo.group ? "1" : "0"}</div>
+          <div>Groups: {userInfo ? "1" : "0"}</div>
         </InfoHeader>
       </HeaderDashboard>
       <ContainerGraphic>
@@ -77,7 +79,7 @@ const Dashborad = () => {
           >{`${progress}%`}</Typography>
         </div>
       </ContainerGraphic>
-    </>
+    </Container>
   );
 };
 export default Dashborad;

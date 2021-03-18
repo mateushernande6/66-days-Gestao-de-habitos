@@ -3,7 +3,28 @@ import StandardButton from "../../button";
 import { FaTrashAlt } from "react-icons/fa";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import { ContentModal } from "./styles";
-const RemoveGoals = ({ groupName }) => {
+import api from "../../../services/index";
+
+const RemoveGoals = ({ value, token }) => {
+  const deleteGoal = () => {
+    const previousProgress = JSON.parse(localStorage.getItem("goalProgress"));
+    let newProgress = "";
+
+    if (previousProgress.length !== 0) {
+      newProgress = previousProgress.filter((elem) => elem.id !== value.id);
+    }
+
+    if (newProgress.length !== 0) {
+      localStorage.setItem("goalProgress", JSON.stringify(newProgress));
+    }
+
+    api
+      .delete(`/goals/${value.id}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(console.log(`${value.id} deletado`));
+  };
+
   return (
     <>
       <StandardModal
@@ -14,9 +35,9 @@ const RemoveGoals = ({ groupName }) => {
       >
         <ContentModal>
           <div>Delete Goals?</div>
-          <div>{groupName}</div>
+          <div>{value.title}</div>
           <div>
-            <StandardButton buttonTxt="DELETE" />
+            <StandardButton onClick={() => deleteGoal()} buttonTxt="DELETE" />
             <StandardButton buttonTxt="BACK" />
           </div>
         </ContentModal>

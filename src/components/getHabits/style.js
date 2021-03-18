@@ -25,4 +25,7 @@ export const Card = styled.div`
     margin-bottom: 3px;
     font-size: 0.9rem;
   }
+  .btnInfo {
+    margin-right: 20px;
+  }
 `;
