@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const CreateGoals = () => {
+const CreateGoals = ({ reloadFunction }) => {
   const classes = useStyles();
   const [difficulty, setDifficulty] = useState("");
   const [token, setToken] = useState(() => {
@@ -57,6 +57,7 @@ const CreateGoals = () => {
     data.difficulty = difficulty;
     data.how_much_achieved = 0;
     data.group = userGroup;
+    reloadFunction();
     console.log(data);
     api
       .post(`/goals/`, data, {

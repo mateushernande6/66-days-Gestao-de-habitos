@@ -11,7 +11,7 @@ import { addGoalProgressThunk } from "../../../store/modules/goalProgress/thunk"
 import { getGroupThunk } from "../../../store/modules/getGroups/thunk";
 import { format } from "date-fns";
 import { FaTrashAlt } from "react-icons/fa";
-import EditGoal from "../editGoal";
+import EditGoal from "../../../components/userGroup/editGoal";
 import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -54,7 +54,6 @@ const ShowUserGroup = () => {
   const user = JSON.parse(localStorage.getItem("token"));
   const userGroup = JSON.parse(localStorage.getItem("userGroup")) || "";
   let { user_id } = JSON.parse(localStorage.getItem("user_id"));
-  const [reload, setReload] = useState(0);
 
   console.log("user_id", user_id);
   console.log(user);
@@ -75,13 +74,7 @@ const ShowUserGroup = () => {
 
     dispatch(addGoalProgressThunk(id, date, token, myGroup));
     dispatch(getGroupThunk(userGroup, token));
-    setReload(!reload);
-    reloadFunction();
-  };
-
-  const reloadFunction = () => {
-    setReload(reload + 1);
-    console.log("reload", reload);
+    setGroupChange(!groupChange);
   };
 
   const leaveGroup = () => {
@@ -109,12 +102,8 @@ const ShowUserGroup = () => {
     //     });
     // }
 
-    dispatch(getGroupThunk(userGroup));
+    dispatch(getGroupThunk(userGroup, token));
   }, []);
-
-  useEffect(() => {
-    dispatch(getGroupThunk(userGroup));
-  }, [reload]);
 
   console.log("myGroup", myGroup);
 
@@ -179,13 +168,12 @@ const ShowUserGroup = () => {
                           groupName={myGroup.name}
                           value={value}
                           token={token}
-                          reloadFunction={reloadFunction}
                         />
                       </span>
                     </CardGoal>
                   ))}
               </InfoGoals>
-              <CreateGoals reloadFunction={reloadFunction} />
+              <CreateGoals />
             </InfoGoalsBorder>
             <InfoActiviesBorder>
               <InfoActivies>
@@ -229,134 +217,3 @@ const ShowUserGroup = () => {
 };
 
 export default ShowUserGroup;
-
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import { useDispatch } from "react-redux";
-// import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
-// import StandardButton from "../../button";
-// import StandardModal from "../../modal";
-// import CreateGoals from "../modalCreateGoals";
-// import RemoveActivies from "../modalRemoveActivies";
-// import RemoveGoals from "../modalRemoveGoals";
-// import { addGoalProgressThunk } from "../../../store/modules/goalProgress/thunk";
-// import { getGroupThunk } from "../../../store/modules/getGroups/thunk";
-// import { format } from "date-fns";
-// import { FaTrashAlt } from "react-icons/fa";
-// import EditGoal from "../editGoal";
-// import { ToastContainer, toast, Zoom, Bounce } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-// import {
-//   Details,
-//   InfoGroup,
-//   InfoGroupName,
-//   InfoGoals,
-//   InfoActivies,
-//   MainDiv,
-//   MainInfo,
-//   InfoGoalsBorder,
-//   InfoActiviesBorder,
-//   CardGoal,
-//   GoalInfo,
-//   GoalDifficulty,
-//   GoalStatus,
-//   CardActivies,
-//   ActiviesInfo,
-//   ActiviesStatus,
-//   ActiviesTime,
-// } from "./styles";
-// import { HaveGroupThunk } from "../../../store/modules/haveGroup/thunks";
-// import CreateActivies from "../modalCreateActivies";
-// import { ToastAnimated, showToast } from "../../toastify";
-// import { useSelector } from "react-redux";
-// import EditActivity from "../editActivity";
-// import { getGoalsThunk } from "../../../store/modules/getGoals/thunk";
-// import { getActivitiesThunk } from "../../../store/modules/getActivities/thunk";
-// import api from "../../../services";
-
-// const ShowUserGroup = () => {
-//   const dispatch = useDispatch();
-//   const myGroup = useSelector((state) => state.getGroups);
-//   const goals = useSelector((state) => state.getGoals);
-//   const activities = useSelector((state) => state.getActivities);
-//   const [groupInfo, setInfo] = useState(false);
-//   const [groupChange, setGroupChange] = useState(true);
-//   const [token, setToken] = useState(() => {
-//     return JSON.parse(localStorage.getItem("token")) || "";
-//   });
-//   const user = JSON.parse(localStorage.getItem("token"));
-//   const userGroup = JSON.parse(localStorage.getItem("userGroup")) || "";
-//   let { user_id } = JSON.parse(localStorage.getItem("user_id"));
-
-//   console.log("user_id", user_id);
-//   console.log(user);
-
-//   // console.log("showGroup", myGroup);
-//   // useEffect(() => {
-//   //   axios
-//   //     .get(`https://kabit-api.herokuapp.com/users/${8}/`)
-//   //     .then((response) => {
-//   //       setGroup(response.data.group);
-//   //       console.log(response.data);
-//   //       console.log(userGroup);
-//   //     });
-//   // }, []);
-
-//   const updateGoal = (id) => {
-//     const date = format(new Date(), "dd/MM/yyyy");
-
-//     dispatch(addGoalProgressThunk(id, date, token, myGroup));
-//     dispatch(getGroupThunk(userGroup));
-//     dispatch(getGoalsThunk(userGroup));
-//     dispatch(getActivitiesThunk(userGroup));
-//     setGroupChange(!groupChange);
-//   };
-
-//   const leaveGroup = () => {
-//     axios
-//       .patch(`https://kabit-api.herokuapp.com/users/${user_id}/`, {
-//         group: null,
-//       })
-//       .then((response) => {
-//         console.log(response.data);
-//         dispatch(HaveGroupThunk(false));
-//       });
-//   };
-//   useEffect(() => {
-//     dispatch(getGroupThunk(userGroup));
-//     dispatch(getGoalsThunk(userGroup));
-//     dispatch(getActivitiesThunk(userGroup));
-//     setNewGroup(userGroup);
-//   }, []);
-
-//   // useEffect(() => {
-//   //   dispatch(getGroupThunk(userGroup));
-//   // }, []);
-
-//   console.log("myGroup", myGroup);
-//   console.log("goals", goals);
-//   console.log("activities", activities);
-
-//   const deleteGoal = async (id) => {
-//     await api.delete(`/goals/${id}/`, {
-//       headers: { Authorization: `Bearer ${token}` },
-//     });
-
-//     dispatch(getGroupThunk(userGroup));
-//   };
-
-//   const [newGroup, setNewGroup] = useState(false);
-
-//   useEffect(() => {
-//     setNewGroup(myGroup);
-//   }, [myGroup]);
-
-//   return (
-//     <>
-//       {myGroup.name}
-//       <button onClick={() => dispatch(getGroupThunk(userGroup))}>Reload</button>
-//     </>
-//   );
-// };
-
-// export default ShowUserGroup;

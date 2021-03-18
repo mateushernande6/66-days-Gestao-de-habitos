@@ -4,7 +4,7 @@ import api from "../../../services/index";
 import { ToastAnimated, showToast } from "../../toastify";
 import Button from "@material-ui/core/Button";
 
-const RemoveGoals = ({ value, token }) => {
+const RemoveGoals = ({ value, token, reloadFunction }) => {
   const toastify = () => showToast({ type: "delete", message: "Goal Deleted" });
   const deleteGoal = () => {
     const previousProgress =
@@ -38,7 +38,9 @@ const RemoveGoals = ({ value, token }) => {
 
         <Button
           onClick={() => {
+            console.log("deletou");
             deleteGoal();
+            reloadFunction();
           }}
           variant="contained"
           color="secondary"
