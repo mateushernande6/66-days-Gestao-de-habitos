@@ -2,11 +2,21 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHabitsThunk } from "../../../store/modules/getHabits/thunk";
 import { StyledContainer, StyledContentBox } from "./styles";
-import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import HabitCard from "../../../components/HabitCard";
 import { useHistory } from "react-router-dom";
 import { format } from "date-fns";
+import { ToastAnimated, showToast } from "../../../components/toastify";
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -23,6 +33,37 @@ const useStyles = makeStyles({
     gridColumnStart: "1",
     gridColumnEnd: "3",
   },
+  spaceBottom: {
+    marginBottom: "30px",
+  },
+
+  formControl: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  selectWidth: {
+    width: "130px",
+    margin: "0 auto",
+    marginBottom: "50px",
+  },
+
+  optionColorAndFont: {
+    color: "black",
+  },
+  radioGrupDisplay: {
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "50px",
+  },
+
+  buttonStyle: {
+    width: "200px",
+    height: "50px;",
+    background: "#23B5B5",
+  },
 });
 
 const MyHabits = () => {
@@ -37,7 +78,7 @@ const MyHabits = () => {
   const getHabits = useSelector((state) => state.getHabits);
 
   useEffect(() => {
-    dispatch(getHabitsThunk(token));
+    dispatch(getHabitsThunk(token), toastifyRefresh());
   }, []);
 
   const handleCategoryFilter = (elem, value) => {
@@ -70,12 +111,26 @@ const MyHabits = () => {
     }
   };
 
+  const toastifyRefresh = () =>
+    showToast({ type: "send", message: "Habits Panel is updated" });
+
+  const toastifyDelete = () =>
+    showToast({ type: "delete", message: "Habit deleted" });
+
+  const toastifyDone = () =>
+    showToast({ type: "create", message: "Congrats! Habit's done today" });
+
+  const toastifyAlreadyDone = () =>
+    showToast({ type: "delete", message: "You've already done this today" });
+
   return (
     <StyledContainer>
+      <ToastAnimated />
+
       <StyledContentBox>
         <header>
           <p>Habits Panel</p>
-          <select
+          {/* <select
             name="status"
             id="level"
             value={filterStatus}
@@ -84,9 +139,26 @@ const MyHabits = () => {
             <option value="all">All</option>
             <option value="in progress">In Progress</option>
             <option value="completed">Completed</option>
-          </select>
+          </select> */}
 
-          <select
+          <FormControl
+            required
+            variant="outlined"
+            className={classes.formControl}
+          >
+            <Select
+              id="demo-simple-select-outlined"
+              className={classes.selectWidth}
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+            >
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="in progress">In Progress</MenuItem>
+              <MenuItem value="completed">Completed</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* <select
             name="Category"
             id="level"
             value={filterCategory}
@@ -99,7 +171,26 @@ const MyHabits = () => {
             <option value="food">Food</option>
             <option value="health">Health</option>
             <option value="study">Study</option>
-          </select>
+          </select> */}
+
+          <FormControl
+            required
+            variant="outlined"
+            className={classes.formControl}
+          >
+            <Select
+              id="demo-simple-select-outlined"
+              className={classes.selectWidth}
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+            >
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="career">Career</MenuItem>
+              <MenuItem value="food">Food</MenuItem>
+              <MenuItem value="health">Health</MenuItem>
+              <MenuItem value="study">Study</MenuItem>
+            </Select>
+          </FormControl>
         </header>
         <main>
           {getHabits &&
@@ -122,6 +213,9 @@ const MyHabits = () => {
                   habit={elem}
                   token={token}
                   updates={isUpgradeableFunction(elem.updates)}
+                  deleteMsg={toastifyDelete}
+                  doneMsg={toastifyDone}
+                  alreadyDoneMsg={toastifyAlreadyDone}
                 />
               ))}
         </main>
