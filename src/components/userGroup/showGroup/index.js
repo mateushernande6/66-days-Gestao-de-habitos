@@ -162,19 +162,19 @@ const ShowUserGroup = () => {
                             )}
                           </GoalStatus>
                         </GoalInfo>
-                        {/* <button
+                        <button
                           onClick={() => {
                             reloadFunction();
                             updateGoal(value.id);
                           }}
                         >
                           Done
-                        </button> */}
-                        <ProgressButton
+                        </button>
+                        {/* <ProgressButton
                           reloadFunction={reloadFunction}
                           updateGoal={updateGoal}
                           id={value.id}
-                        />
+                        /> */}
                         <span>
                           <EditGoal
                             value={value}
