@@ -2,6 +2,11 @@ import Groups from "../groups";
 import UserGroup from "../../components/userGroup";
 import { useSelector } from "react-redux";
 import PersonalGroup from "../personalGroup";
+import {
+  CircleBottom,
+  CircleTop,
+  Container,
+} from "../../Assets/Layout-pattern-pages/Style";
 
 const GroupPage = () => {
   const joinGroup = useSelector((state) => state.haveGroup);
@@ -9,9 +14,21 @@ const GroupPage = () => {
   console.log(haveGroup);
   console.log(joinGroup);
   if (joinGroup || haveGroup) {
-    return <PersonalGroup />;
+    return (
+      <Container>
+        <CircleTop />
+        <CircleBottom />
+        <PersonalGroup />
+      </Container>
+    );
   } else {
-    return <Groups />;
+    return (
+      <Container>
+        <CircleTop />
+        <CircleBottom />
+        <Groups />
+      </Container>
+    );
   }
 };
 
