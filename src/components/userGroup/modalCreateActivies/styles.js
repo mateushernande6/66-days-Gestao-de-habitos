@@ -58,3 +58,18 @@ export const ErrorMessage = styled.div`
   border-radius: 4px;
   margin: 2px;
 `;
+export const ContentModal = styled.div`
+  background-color: white;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Label = styled.label`
+  color: black;
+  margin-bottom: 11px;
+`;

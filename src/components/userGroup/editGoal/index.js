@@ -10,6 +10,8 @@ import { ContentModal } from "./styles";
 import api from "../../../services/index";
 import { makeStyles } from "@material-ui/core/styles";
 import { Form, Label } from "./styles";
+import { showToast } from "../../toastify";
+
 import {
   Button,
   FormControl,
@@ -35,6 +37,8 @@ const schema = yup.object().shape({
 });
 
 const EditGoal = ({ value, token }) => {
+  const toastify = () => showToast({ type: "send", message: "Goal edited" });
+
   const classes = useStyles();
   const [difficulty, setDifficulty] = useState("");
   const { register, handleSubmit, errors } = useForm({
@@ -51,7 +55,10 @@ const EditGoal = ({ value, token }) => {
       .patch(`/goals/${value.id}/`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(console.log(`${value.id} editado`));
+      .then(() => {
+        toastify();
+        console.log(`${value.id} editado`);
+      });
   };
 
   return (
@@ -64,9 +71,9 @@ const EditGoal = ({ value, token }) => {
       >
         <ContentModal>
           <Form className={classes.root} onSubmit={handleSubmit(handleForm)}>
-            <h3>Edit habit</h3>
-            <h4>{`Habit: ${value.title}`}</h4>
-            <Label>New habit's title</Label>
+            <h3>Edit goal</h3>
+            <h4>{`Goal: ${value.title}`}</h4>
+            <Label>New goal's title</Label>
             <TextField
               className={classes.spaceBottom}
               id="outlined-basic"

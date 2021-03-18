@@ -1,9 +1,9 @@
 import StandardModal from "../../modal";
-import StandardButton from "../../button";
 import { FaTrashAlt } from "react-icons/fa";
-import { ContentModal } from "./styles";
+
 import api from "../../../services/index";
 import { ToastAnimated, showToast } from "../../toastify";
+import Button from "@material-ui/core/Button";
 
 const RemoveActivities = ({ value, token }) => {
   const toastify = () =>
@@ -15,6 +15,7 @@ const RemoveActivities = ({ value, token }) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
+        toastify();
         console.log(`${value.id} deletado`);
       });
   };
@@ -28,20 +29,17 @@ const RemoveActivities = ({ value, token }) => {
         buttonHeight="30px"
         buttonMargin="6px"
       >
-        <ContentModal>
-          <div>Delete Activity?</div>
-          <div>{value.title}</div>
-          <div>
-            <StandardButton
-              onClick={() => {
-                deleteActivity();
-                toastify();
-              }}
-              buttonTxt="DELETE"
-            />
-            <StandardButton buttonTxt="BACK" />
-          </div>
-        </ContentModal>
+        <h4 style={{ textAlign: "center" }}>{value.title}</h4>
+
+        <Button
+          onClick={() => {
+            deleteActivity();
+          }}
+          variant="contained"
+          color="secondary"
+        >
+          Delete
+        </Button>
       </StandardModal>
     </>
   );

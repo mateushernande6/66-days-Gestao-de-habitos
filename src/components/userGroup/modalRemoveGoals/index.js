@@ -1,10 +1,8 @@
 import StandardModal from "../../modal";
-import StandardButton from "../../button";
 import { FaTrashAlt } from "react-icons/fa";
-import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
-import { ContentModal } from "./styles";
 import api from "../../../services/index";
 import { ToastAnimated, showToast } from "../../toastify";
+import Button from "@material-ui/core/Button";
 
 const RemoveGoals = ({ value, token }) => {
   const toastify = () => showToast({ type: "delete", message: "Goal Deleted" });
@@ -20,7 +18,10 @@ const RemoveGoals = ({ value, token }) => {
       .delete(`/goals/${value.id}/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(console.log(`${value.id} deletado`));
+      .then(() => {
+        toastify();
+        console.log(`${value.id} deletado`);
+      });
   };
 
   return (
@@ -33,19 +34,17 @@ const RemoveGoals = ({ value, token }) => {
         buttonHeight="30px"
         buttonMargin="6px"
       >
-        <ContentModal>
-          <div>Delete Goals?</div>
-          <div>{value.title}</div>
-          <div>
-            <StandardButton
-              onClick={() => {
-                toastify();
-                deleteGoal();
-              }}
-              buttonTxt="DELETE"
-            />
-          </div>
-        </ContentModal>
+        <h4 style={{ textAlign: "center" }}>{value.title}</h4>
+
+        <Button
+          onClick={() => {
+            deleteGoal();
+          }}
+          variant="contained"
+          color="secondary"
+        >
+          Delete
+        </Button>
       </StandardModal>
     </>
   );
