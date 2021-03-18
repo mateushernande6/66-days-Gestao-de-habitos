@@ -35,18 +35,14 @@ const Menu = () => {
         <Link to="/dashboard" style={{ color: "black" }}>
           <BsClipboardData />
         </Link>
-      </div>
-
-      <div>
-        <AiOutlineBell />
-
         <Link
           to="/password-reset"
           style={{ display: "flex", justifyContent: "center", color: "black" }}
         >
           <AiOutlineSetting />
         </Link>
-
+      </div>
+      <div>
         <BsPowerStyled onClick={() => logout()} />
       </div>
     </StyledMenu>
