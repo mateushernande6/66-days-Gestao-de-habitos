@@ -34,6 +34,7 @@ export const StyledMenu = styled.div`
 `;
 
 export const BsPowerStyled = styled(BsPower)`
+  margin-top: 50px;
   &:hover {
     cursor: pointer;
   }

@@ -48,7 +48,7 @@ export default function ModalDashboard({
 
   return (
     <div>
-      {/* <Modal
+      <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
@@ -59,32 +59,32 @@ export default function ModalDashboard({
         BackdropProps={{
           timeout: 500,
         }}
-      > */}
-      <Fade in={open}>
-        <div className={classes.paper}>
-          <h2 id="transition-modal-title">Habit info</h2>
-          <p id="transition-modal-description">{`Title: ${habit.title}`}</p>
-          <p id="transition-modal-description">{`Category: ${habit.category}`}</p>
-          <p id="transition-modal-description">{`Difficulty: ${habit.difficulty}`}</p>
-          <p id="transition-modal-description">{`Frequency: ${habit.frequency}`}</p>
-          <p id="transition-modal-description">{`Achieved: ${
-            habit.achieved ? "Completed" : "In Progress"
-          }`}</p>
-          <p id="transition-modal-description">{`Progress: ${Math.round(
-            (habit.how_much_achieved / 66) * 100
-          )}%`}</p>
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <h2 id="transition-modal-title">Habit info</h2>
+            <p id="transition-modal-description">{`Title: ${habit.title}`}</p>
+            <p id="transition-modal-description">{`Category: ${habit.category}`}</p>
+            <p id="transition-modal-description">{`Difficulty: ${habit.difficulty}`}</p>
+            <p id="transition-modal-description">{`Frequency: ${habit.frequency}`}</p>
+            <p id="transition-modal-description">{`Achieved: ${
+              habit.achieved ? "Completed" : "In Progress"
+            }`}</p>
+            <p id="transition-modal-description">{`Progress: ${Math.round(
+              (habit.how_much_achieved / 66) * 100
+            )}%`}</p>
 
-          <Button
-            className={classes.backBtn}
-            color="primary"
-            variant="contained"
-            onClick={handleClose}
-          >
-            Back
-          </Button>
-        </div>
-      </Fade>
-      {/* </Modal> */}
+            <Button
+              className={classes.backBtn}
+              color="primary"
+              variant="contained"
+              onClick={handleClose}
+            >
+              Back
+            </Button>
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 }

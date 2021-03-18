@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHabitsThunk } from "../../../store/modules/getHabits/thunk";
-import { StyledContainer, StyledContentBox } from "./styles";
+import {
+  StyledContainer,
+  StyledContentBox,
+  ContainerCreateCard,
+  SelectStyled,
+  HeaderStyled,
+  H1,
+  H3,
+} from "./styles";
 import { makeStyles } from "@material-ui/core/styles";
 import HabitCard from "../../../components/HabitCard";
 import { useHistory } from "react-router-dom";
@@ -17,6 +25,11 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
+import {
+  Container,
+  CircleBottom,
+  CircleTop,
+} from "../../../Assets/Layout-pattern-pages/Style";
 
 const useStyles = makeStyles({
   root: {
@@ -29,7 +42,7 @@ const useStyles = makeStyles({
     width: "250px",
     height: "62px",
     display: "block",
-    margin: "0 auto",
+    margin: "2vh auto",
     gridColumnStart: "1",
     gridColumnEnd: "3",
   },
@@ -42,12 +55,12 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    width: "20%",
+    maxWidth: "150px",
   },
 
   selectWidth: {
-    width: "130px",
-    margin: "0 auto",
-    marginBottom: "50px",
+    width: "100%",
   },
 
   optionColorAndFont: {
@@ -124,31 +137,23 @@ const MyHabits = () => {
     showToast({ type: "delete", message: "You've already done this today" });
 
   return (
-    <StyledContainer>
-      <ToastAnimated />
+    <Container>
+      <CircleTop />
+      <CircleBottom />
+      <ContainerCreateCard>
+        <ToastAnimated />
 
-      <StyledContentBox>
-        <header>
-          <p>Habits Panel</p>
-          {/* <select
-            name="status"
-            id="level"
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-          >
-            <option value="all">All</option>
-            <option value="in progress">In Progress</option>
-            <option value="completed">Completed</option>
-          </select> */}
+        <HeaderStyled>
+          <H1>Habits Panel</H1>
 
           <FormControl
+            className={classes.formControl}
             required
             variant="outlined"
-            className={classes.formControl}
           >
             <Select
-              id="demo-simple-select-outlined"
               className={classes.selectWidth}
+              id="demo-simple-select-outlined"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
             >
@@ -158,29 +163,14 @@ const MyHabits = () => {
             </Select>
           </FormControl>
 
-          {/* <select
-            name="Category"
-            id="level"
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value)}
-          >
-            <option selected value="all">
-              All
-            </option>
-            <option value="career">Career</option>
-            <option value="food">Food</option>
-            <option value="health">Health</option>
-            <option value="study">Study</option>
-          </select> */}
-
           <FormControl
             required
             variant="outlined"
             className={classes.formControl}
           >
             <Select
-              id="demo-simple-select-outlined"
               className={classes.selectWidth}
+              id="demo-simple-select-outlined"
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
             >
@@ -191,7 +181,7 @@ const MyHabits = () => {
               <MenuItem value="study">Study</MenuItem>
             </Select>
           </FormControl>
-        </header>
+        </HeaderStyled>
         <main>
           {getHabits &&
             getHabits
@@ -219,18 +209,125 @@ const MyHabits = () => {
                 />
               ))}
         </main>
-      </StyledContentBox>
 
-      <Button
-        onClick={() => history.push("/register-habit")}
-        className={classes.root}
-        color="primary"
-        variant="contained"
-      >
-        Create Habit
-      </Button>
-    </StyledContainer>
+        <Button
+          onClick={() => history.push("/register-habit")}
+          className={classes.root}
+          color="primary"
+          variant="contained"
+        >
+          Create Habit
+        </Button>
+      </ContainerCreateCard>
+    </Container>
   );
 };
 
 export default MyHabits;
+
+// <StyledContainer>
+//   <ToastAnimated />
+
+//   <StyledContentBox>
+//     <header>
+//       <p>Habits Panel</p>
+//       {/* <select
+//         name="status"
+//         id="level"
+//         value={filterStatus}
+//         onChange={(e) => setFilterStatus(e.target.value)}
+//       >
+//         <option value="all">All</option>
+//         <option value="in progress">In Progress</option>
+//         <option value="completed">Completed</option>
+//       </select> */}
+
+//       <FormControl
+//         required
+//         variant="outlined"
+//         className={classes.formControl}
+//       >
+//         <Select
+//           id="demo-simple-select-outlined"
+//           className={classes.selectWidth}
+//           value={filterStatus}
+//           onChange={(e) => setFilterStatus(e.target.value)}
+//         >
+//           <MenuItem value="all">All</MenuItem>
+//           <MenuItem value="in progress">In Progress</MenuItem>
+//           <MenuItem value="completed">Completed</MenuItem>
+//         </Select>
+//       </FormControl>
+
+//       {/* <select
+//         name="Category"
+//         id="level"
+//         value={filterCategory}
+//         onChange={(e) => setFilterCategory(e.target.value)}
+//       >
+//         <option selected value="all">
+//           All
+//         </option>
+//         <option value="career">Career</option>
+//         <option value="food">Food</option>
+//         <option value="health">Health</option>
+//         <option value="study">Study</option>
+//       </select> */}
+
+//       <FormControl
+//         required
+//         variant="outlined"
+//         className={classes.formControl}
+//       >
+//         <Select
+//           id="demo-simple-select-outlined"
+//           className={classes.selectWidth}
+//           value={filterCategory}
+//           onChange={(e) => setFilterCategory(e.target.value)}
+//         >
+//           <MenuItem value="all">All</MenuItem>
+//           <MenuItem value="career">Career</MenuItem>
+//           <MenuItem value="food">Food</MenuItem>
+//           <MenuItem value="health">Health</MenuItem>
+//           <MenuItem value="study">Study</MenuItem>
+//         </Select>
+//       </FormControl>
+//     </header>
+//     <main>
+//       {getHabits &&
+//         getHabits
+//           .sort(function (a, b) {
+//             return a.updates.length < b.updates.length
+//               ? -1
+//               : a.updates.length > b.updates.length
+//               ? 1
+//               : 0;
+//           })
+//           .filter(
+//             (elem) =>
+//               handleCategoryFilter(elem, filterCategory) &&
+//               handleStatusFilter(elem, filterStatus)
+//           )
+//           .map((elem, index) => (
+//             <HabitCard
+//               key={index}
+//               habit={elem}
+//               token={token}
+//               updates={isUpgradeableFunction(elem.updates)}
+//               deleteMsg={toastifyDelete}
+//               doneMsg={toastifyDone}
+//               alreadyDoneMsg={toastifyAlreadyDone}
+//             />
+//           ))}
+//     </main>
+//   </StyledContentBox>
+
+//   <Button
+//     onClick={() => history.push("/register-habit")}
+//     className={classes.root}
+//     color="primary"
+//     variant="contained"
+//   >
+//     Create Habit
+//   </Button>
+// </StyledContainer>

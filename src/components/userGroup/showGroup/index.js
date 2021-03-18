@@ -8,6 +8,7 @@ import CreateGoals from "../modalCreateGoals";
 import RemoveActivies from "../modalRemoveActivies";
 import RemoveGoals from "../modalRemoveGoals";
 import { addGoalProgressThunk } from "../../../store/modules/goalProgress/thunk";
+import { getGroupThunk } from "../../../store/modules/getGroups/thunk";
 import { format } from "date-fns";
 import { FaTrashAlt } from "react-icons/fa";
 import EditGoal from "../../../components/userGroup/editGoal";
@@ -35,16 +36,18 @@ import {
 import { HaveGroupThunk } from "../../../store/modules/haveGroup/thunks";
 import CreateActivies from "../modalCreateActivies";
 import { ToastAnimated, showToast } from "../../toastify";
+import { useSelector } from "react-redux";
 import EditActivity from "../editActivity";
 
 const ShowUserGroup = () => {
   const dispatch = useDispatch();
-
+  const myGroup = useSelector((state) => state.getGroups);
   const [groupInfo, setInfo] = useState(false);
   // const user = localStorage.getItem("token");
   // const userGroup = localStorage.getItem("userGroup") || "";
   const [goals, setGoals] = useState("");
   const [activities, setActivities] = useState("");
+  const [groupChange, setGroupChange] = useState(true);
   const [token, setToken] = useState(() => {
     return JSON.parse(localStorage.getItem("token")) || "";
   });
@@ -52,8 +55,10 @@ const ShowUserGroup = () => {
   const userGroup = JSON.parse(localStorage.getItem("userGroup")) || "";
   let { user_id } = JSON.parse(localStorage.getItem("user_id"));
 
-  console.log(user_id);
+  console.log("user_id", user_id);
   console.log(user);
+
+  // console.log("showGroup", myGroup);
   // useEffect(() => {
   //   axios
   //     .get(`https://kabit-api.herokuapp.com/users/${8}/`)
@@ -67,7 +72,9 @@ const ShowUserGroup = () => {
   const updateGoal = (id) => {
     const date = format(new Date(), "dd/MM/yyyy");
 
-    dispatch(addGoalProgressThunk(id, date, token, groupInfo));
+    dispatch(addGoalProgressThunk(id, date, token, myGroup));
+    dispatch(getGroupThunk(userGroup, token));
+    setGroupChange(!groupChange);
   };
 
   const leaveGroup = () => {
@@ -82,28 +89,32 @@ const ShowUserGroup = () => {
   };
   useEffect(() => {
     // console.log(userGroup);
-    if (userGroup !== "") {
-      axios
-        .get(`https://kabit-api.herokuapp.com/groups/${userGroup}/`)
-        .then((response) => {
-          // console.log(response.data);
-          setInfo(response.data);
-          setGoals(response.data.goals);
-          setActivities(response.data.activities);
-          // console.log(groupInfo);
-          // console.log(goals, activities);]
-        });
-    }
+    // if (userGroup !== "") {
+    //   axios
+    //     .get(`https://kabit-api.herokuapp.com/groups/${userGroup}/`)
+    //     .then((response) => {
+    //       // console.log(response.data);
+    //       setInfo(response.data);
+    //       setGoals(response.data.goals);
+    //       setActivities(response.data.activities);
+    //       // console.log(groupInfo);
+    //       // console.log(goals, activities);]
+    //     });
+    // }
+
+    dispatch(getGroupThunk(userGroup, token));
   }, []);
+
+  console.log("myGroup", myGroup);
 
   return (
     <>
       <ToastAnimated />
-      {groupInfo && (
+      {myGroup && (
         <MainDiv>
           <InfoGroup>
             <InfoGroupName>
-              <div>Group: {groupInfo && groupInfo.name}</div>
+              <div>Group: {myGroup && myGroup.name}</div>
             </InfoGroupName>
             <StandardButton
               onClick={() => {
@@ -112,8 +123,8 @@ const ShowUserGroup = () => {
               buttonTxt="Leave Group"
             />
             <Details>
-              <div> Category: {groupInfo && groupInfo.category}</div>
-              <div> Users: {groupInfo && groupInfo.users.length}</div>
+              <div> Category: {myGroup && myGroup.category}</div>
+              <div> Users: {myGroup.users && myGroup.users.length}</div>
             </Details>
           </InfoGroup>
           <MainInfo>
@@ -121,8 +132,8 @@ const ShowUserGroup = () => {
               <InfoGoals>
                 <h5>Goals</h5>
 
-                {groupInfo &&
-                  groupInfo.goals.map((value, index) => (
+                {myGroup.goals &&
+                  myGroup.goals.map((value, index) => (
                     <CardGoal key={index}>
                       <GoalInfo>
                         <b>{value.title} &#9;</b>
@@ -133,12 +144,16 @@ const ShowUserGroup = () => {
                           {value.achieved ? (
                             <i>
                               Completed
-                              {` ${value.how_much_achieved} / ${groupInfo.users.length}`}
+                              {` ${value.how_much_achieved} / ${
+                                myGroup.users && myGroup.users.length
+                              }`}
                             </i>
                           ) : (
                             <i>
                               In Progress
-                              {` ${value.how_much_achieved} / ${groupInfo.users.length}`}
+                              {` ${value.how_much_achieved} / ${
+                                myGroup.users && myGroup.users.length
+                              }`}
                             </i>
                           )}
                         </GoalStatus>
@@ -150,7 +165,7 @@ const ShowUserGroup = () => {
                       </span>
                       <span>
                         <RemoveGoals
-                          groupName={groupInfo.name}
+                          groupName={myGroup.name}
                           value={value}
                           token={token}
                         />
@@ -165,8 +180,8 @@ const ShowUserGroup = () => {
                 <h5>Activities</h5>
 
                 <div>
-                  {groupInfo &&
-                    groupInfo.activities.map((value, index) => (
+                  {myGroup.activities &&
+                    myGroup.activities.map((value, index) => (
                       <CardActivies key={index}>
                         <ActiviesInfo>
                           {value.title}
@@ -182,7 +197,7 @@ const ShowUserGroup = () => {
 
                         <span>
                           <RemoveActivies
-                            groupName={groupInfo.name}
+                            groupName={myGroup.name}
                             value={value}
                             token={token}
                           />

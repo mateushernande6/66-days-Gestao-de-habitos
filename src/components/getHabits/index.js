@@ -6,6 +6,7 @@ import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
 import TransitionsModal from "../Modal";
 import { Button } from "@material-ui/core";
 import ModalDashboard from "../modalDashboard";
+import HabitCard from "../HabitCard/index";
 
 const GetHabits = () => {
   const [open, setOpen] = useState(false);
@@ -30,8 +31,8 @@ const GetHabits = () => {
   return (
     <ContainerCard>
       {getHabits.map((item, index) => (
-        <>
-          <Card key={index}>
+        <HabitCard key={index} habit={item} panel={false} token={token}>
+          {/* <Card key={index}>
             <div>
               <h4>{item.title}</h4>
               <p>category: {item.category}</p>
@@ -50,8 +51,8 @@ const GetHabits = () => {
               </Button>
             </div>
           </Card>
-          <ModalDashboard open={open} handleClose={handleClose} habit={item} />
-        </>
+          <ModalDashboard open={open} handleClose={handleClose} habit={item} /> */}
+        </HabitCard>
       ))}
     </ContainerCard>
   );

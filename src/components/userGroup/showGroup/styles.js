@@ -6,14 +6,18 @@ export const MainDiv = styled.div`
   color: black;
   width: 80%;
   max-height: 100vh;
+  position: relative;
 `;
 export const InfoGroup = styled.div`
   background-color: #ffffff;
   border-radius: 6px;
   display: flex;
+  flex-direction: row;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  border: solid 2px lightgray;
+  padding: 10px;
 `;
 
 export const InfoGroupName = styled.div`
@@ -21,7 +25,7 @@ export const InfoGroupName = styled.div`
 `;
 
 export const Details = styled.div`
-  border: 1px solid black;
+  border: solid 2px lightgray;
   border-radius: 6px;
   display: flex;
   flex-flow: row wrap;
@@ -43,7 +47,7 @@ export const InfoGoalsBorder = styled.div`
 
   padding: 8px;
   border-radius: 7px;
-  border: 0.7px solid black;
+  border: solid 2px lightgray;
   flex-basis: 430px;
   overflow-y: scroll;
   max-height: 75vh;
@@ -55,7 +59,7 @@ export const InfoGoalsBorder = styled.div`
 
 export const InfoGoals = styled.div`
   border-radius: 6px;
-  border: 0.3px solid black;
+  border: solid 2px lightgray;
 
   padding: 8px;
   h5 {
@@ -70,7 +74,7 @@ export const InfoActiviesBorder = styled.div`
   background-color: #ffffff;
 
   border-radius: 7px;
-  border: 0.7px solid black;
+  border: solid 2px lightgray;
   padding: 8px;
   flex-basis: 430px;
   overflow-y: scroll;
@@ -82,7 +86,7 @@ export const InfoActiviesBorder = styled.div`
 
 export const InfoActivies = styled.div`
   border-radius: 6px;
-  border: 0.3px solid black;
+  border: solid 2px lightgray;
 
   padding: 8px;
   h5 {
