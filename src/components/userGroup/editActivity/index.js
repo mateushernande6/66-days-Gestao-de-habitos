@@ -8,6 +8,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Form, Label, ContentModal } from "./styles";
 import { Button, TextField } from "@material-ui/core";
 import { showToast } from "../../toastify";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getGroupThunk } from "../../../store/modules/getGroups/thunk";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,9 +25,15 @@ const schema = yup.object().shape({
   title: yup.string().required("Required field"),
 });
 
-const EditActivity = ({ value, token }) => {
+const EditActivity = ({ value, token, reloadFunction }) => {
   const toastify = () =>
     showToast({ type: "send", message: "Activity edited" });
+
+  const dispatch = useDispatch();
+  const [userGroup, setGroup] = useState(() => {
+    const group = localStorage.getItem("userGroup") || "";
+    return JSON.parse(group);
+  });
 
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm({
@@ -43,6 +52,9 @@ const EditActivity = ({ value, token }) => {
         toastify();
         console.log(`${value.id} editado`);
       });
+
+    reloadFunction();
+    dispatch(getGroupThunk(userGroup));
   };
 
   return (
