@@ -1,5 +1,8 @@
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getGroupThunk } from "../../../store/modules/getGroups/thunk";
 
 const useStyles = makeStyles({
   root: {
@@ -45,15 +48,33 @@ const ProgressButton = ({
   updates = false,
 }) => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const [check, setCheck] = useState(0);
+  const [progress, setProgress] = useState(false);
+  const userGroup = JSON.parse(localStorage.getItem("userGroup"));
   const progressSucceed = () => {
     reloadFunction();
     updateGoal(id);
+    setCheck(check + 1);
   };
+
+  const checkProgress = () => {
+    const goalProgress = JSON.parse(localStorage.getItem("goalProgress")) || [];
+
+    setProgress(false);
+
+    if (goalProgress.filter((elem) => elem.id === id).length > 0) {
+      setProgress(true);
+    }
+  };
+
+  useEffect(() => {
+    checkProgress();
+  }, [check]);
 
   return (
     <>
-      {updates ? (
+      {progress ? (
         <Button
           className={classes.updatedBtn}
           color="primary"
