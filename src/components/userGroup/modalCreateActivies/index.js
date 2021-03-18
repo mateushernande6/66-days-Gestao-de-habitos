@@ -3,40 +3,24 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState, useEffect } from "react";
 import StandardModal from "../../modal";
-import { Button, Divider, makeStyles } from "@material-ui/core";
-import { DifficultyDiv, InputDiv, ModalDiv, ErrorMessage } from "./styles";
+import { Button, makeStyles, TextField } from "@material-ui/core";
+import { Form, Label, ContentModal } from "./styles";
 import axios from "axios";
 import DateTimePicker from "react-datetime-picker";
+import { showToast } from "../../toastify";
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: "linear-gradient(45deg, #8aeb91 30%, #86e78e 90%)",
-    border: 0,
-    borderRadius: 3,
-    boxShadow: "linear-gradient(45deg, #8aeb91 30%, #86e78e 90%)",
-    color: "white",
-    height: 26,
-    padding: "0 30px",
-    margin: "4px",
-  },
-
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
+    "& > *": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
   },
 }));
 const CreateActivies = () => {
+  const toastify = () =>
+    showToast({ type: "create", message: "Activity Created" });
+
   const classes = useStyles();
   const [value, onChange] = useState(new Date());
 
@@ -69,7 +53,7 @@ const CreateActivies = () => {
       .post(`https://kabit-api.herokuapp.com/activities/`, send, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then()
+      .then(toastify())
       .catch((e) => console.log(e.response));
   };
 
@@ -81,47 +65,27 @@ const CreateActivies = () => {
       buttonHeight="30px"
       buttonMargin="6px"
     >
-      <ModalDiv>
-        <form onSubmit={handleSubmit(handleData)}>
-          <section>
-            <h1>Create Activies</h1>
-
-            <InputDiv>
-              <div>
-                <div>Title:</div>
-                <input
-                  name="title"
-                  type="text"
-                  placeholder="Max 18 characters"
-                  ref={register}
-                />
-                {errors.title && (
-                  <ErrorMessage>{errors.title.message}</ErrorMessage>
-                )}
-              </div>
-            </InputDiv>
-            <DifficultyDiv>
-              <h2>Define a Realization Time</h2>
-            </DifficultyDiv>
-            <div>
-              <DateTimePicker onChange={onChange} value={value} />
-            </div>
-            <Button
-              type="submit"
-              className={classes.root}
-              color="primary"
-              variant="contained"
-            >
-              Create Activies
-            </Button>
-          </section>
-        </form>
-        <div>
-          Title:{save.title}
-          Difficulty: {save.difficulty}
-          Time: {value.toISOString()}
-        </div>
-      </ModalDiv>
+      <ContentModal>
+        <Form className={classes.root} onSubmit={handleSubmit(handleData)}>
+          <h3>Create a Activity</h3>
+          <h4>Activity: </h4>
+          <Label>New activity title</Label>
+          <TextField
+            className={classes.spaceBottom}
+            id="outlined-basic"
+            variant="outlined"
+            name="title"
+            inputRef={register}
+            errors={!!errors.title}
+            helperText={errors.title?.message}
+          />
+          <Label>Define a Realization Time</Label>
+          <DateTimePicker onChange={onChange} value={value} />
+          <Button type="submit" variant="contained">
+            Create Activity
+          </Button>
+        </Form>
+      </ContentModal>
     </StandardModal>
   );
 };
