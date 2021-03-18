@@ -46,7 +46,15 @@ const useStyles = makeStyles({
   },
 });
 
-const HabitCard = ({ habit, panel = true, token, updates }) => {
+const HabitCard = ({
+  habit,
+  panel = true,
+  token,
+  updates,
+  deleteMsg,
+  doneMsg,
+  alreadyDoneMsg,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -72,7 +80,7 @@ const HabitCard = ({ habit, panel = true, token, updates }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    dispatch(getHabitsThunk(token));
+    dispatch(getHabitsThunk(token, deleteMsg()));
 
     handleClose();
   };
@@ -81,7 +89,7 @@ const HabitCard = ({ habit, panel = true, token, updates }) => {
     const date = format(new Date(), "dd/MM/yyyy");
 
     dispatch(addHabitProgressThunk(id, date, token));
-    dispatch(getHabitsThunk(token));
+    dispatch(getHabitsThunk(token, doneMsg()));
   };
 
   return (
@@ -122,6 +130,7 @@ const HabitCard = ({ habit, panel = true, token, updates }) => {
               className={classes.updatedBtn}
               color="primary"
               variant="contained"
+              onClick={() => alreadyDoneMsg()}
             >
               Updated
             </Button>
