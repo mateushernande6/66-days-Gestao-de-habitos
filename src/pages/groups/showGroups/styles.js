@@ -1,13 +1,16 @@
 import styled from "styled-components";
+import { ContainerCreateCard } from "../../../Assets/Layout-pattern-pages/Style";
 
 export const MainDiv = styled.div`
   background-color: #ededf6;
+  top: 0px;
   width: 500px;
   padding: 10px;
   padding-top: 0px;
   margin-top: 0px;
   color: black;
   border-radius: 10px;
+  position: absolute;
 `;
 
 export const DivGroups = styled.div`
