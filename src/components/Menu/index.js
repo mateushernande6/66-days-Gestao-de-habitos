@@ -3,9 +3,20 @@ import Logo from "../../images/66-days-logo.png";
 import { AiOutlineHome, AiOutlineBell, AiOutlineSetting } from "react-icons/ai";
 import { GrGroup } from "react-icons/gr";
 import { BsClipboardData, BsPower } from "react-icons/bs";
-import { StyledMenu } from "./styles";
+import { StyledMenu, BsPowerStyled } from "./styles";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { IsLoggedThunk } from "../../store/modules/isLogged/thunks";
 
 const Menu = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(IsLoggedThunk(false));
+    history.push("/");
+  };
+
   return (
     <StyledMenu>
       <Link to="home">
@@ -36,7 +47,7 @@ const Menu = () => {
           <AiOutlineSetting />
         </Link>
 
-        <BsPower />
+        <BsPowerStyled onClick={() => logout()} />
       </div>
     </StyledMenu>
   );

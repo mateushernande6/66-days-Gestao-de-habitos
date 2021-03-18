@@ -5,6 +5,9 @@ import {
   UserInfo,
   ContainerGraphic,
   Container,
+  CircleTop,
+  CircleBottom,
+  ContainerCreateCard,
 } from "./style";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
@@ -15,7 +18,8 @@ import { useState, useEffect } from "react";
 const Dashborad = () => {
   const [habits, setHabits] = useState([]);
   const [progress, setProgress] = useState(0);
-  const [userInfo, setUserInfo] = useState();
+  const [userGroup, setUserGroup] = useState();
+  const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -33,18 +37,25 @@ const Dashborad = () => {
           initialValue
         );
         setProgress(Math.round(theProgress / qnt));
-        setUserInfo(JSON.parse(localStorage.getItem("userGroup")));
+        setUserGroup(JSON.parse(localStorage.getItem("userGroup")));
+        setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
       });
   }, []);
-
+  console.log("userInfo", userInfo);
   return (
     <Container>
+      <CircleBottom />
+      <CircleTop />
       <DashTitle>Dashboard</DashTitle>
       <HeaderDashboard>
-        <UserInfo>User: Mateus de souza hernandes</UserInfo>
+        <UserInfo>
+          {" "}
+          <strong> @</strong>
+          {userInfo?.username}
+        </UserInfo>
         <InfoHeader>
           <div>Habits: {habits.length}</div>
-          <div>Groups: {userInfo ? "1" : "0"}</div>
+          <div>Groups: {userGroup ? "1" : "0"}</div>
         </InfoHeader>
       </HeaderDashboard>
       <ContainerGraphic>

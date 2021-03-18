@@ -1,46 +1,50 @@
-import StandardModal from "../../modal";
-import StandardButton from "../../button";
+import StandardModal from "../../modall";
 import { FaTrashAlt } from "react-icons/fa";
-import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
-import { ContentModal } from "./styles";
 import api from "../../../services/index";
+import { ToastAnimated, showToast } from "../../toastify";
+import Button from "@material-ui/core/Button";
 
 const RemoveGoals = ({ value, token }) => {
+  const toastify = () => showToast({ type: "delete", message: "Goal Deleted" });
   const deleteGoal = () => {
-    const previousProgress = JSON.parse(localStorage.getItem("goalProgress"));
-    let newProgress = "";
+    const previousProgress =
+      JSON.parse(localStorage.getItem("goalProgress")) || [];
 
-    if (previousProgress.length !== 0) {
-      newProgress = previousProgress.filter((elem) => elem.id !== value.id);
-    }
+    const newProgress = previousProgress.filter((elem) => elem.id !== value.id);
 
-    if (newProgress.length !== 0) {
-      localStorage.setItem("goalProgress", JSON.stringify(newProgress));
-    }
+    localStorage.setItem("goalProgress", JSON.stringify(newProgress));
 
     api
       .delete(`/goals/${value.id}/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(console.log(`${value.id} deletado`));
+      .then(() => {
+        toastify();
+        console.log(`${value.id} deletado`);
+      });
   };
 
   return (
     <>
+      <ToastAnimated />
+
       <StandardModal
         buttonColor="default"
         buttonTxt={<FaTrashAlt />}
         buttonHeight="30px"
         buttonMargin="6px"
       >
-        <ContentModal>
-          <div>Delete Goals?</div>
-          <div>{value.title}</div>
-          <div>
-            <StandardButton onClick={() => deleteGoal()} buttonTxt="DELETE" />
-            <StandardButton buttonTxt="BACK" />
-          </div>
-        </ContentModal>
+        <h4 style={{ textAlign: "center" }}>{value.title}</h4>
+
+        <Button
+          onClick={() => {
+            deleteGoal();
+          }}
+          variant="contained"
+          color="secondary"
+        >
+          Delete
+        </Button>
       </StandardModal>
     </>
   );

@@ -1,20 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 728px;
-  height: 738px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: solid 2px black;
-  border-radius: 10px;
-  box-shadow: 2px 5px 8px black;
-  background-color: white;
-  position: relative;
-`;
-
 export const Form = styled.form`
   display: flex;
   flex-direction: column;

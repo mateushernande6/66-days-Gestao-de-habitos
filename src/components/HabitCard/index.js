@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
 import { addHabitProgressThunk } from "../../store/modules/habitProgress/thunk";
@@ -29,6 +29,15 @@ const useStyles = makeStyles({
     width: "40%",
     height: "80%",
   },
+  updatedBtn: {
+    background: "#F25456",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
+    color: "black",
+    width: "40%",
+    height: "80%",
+  },
   trash: {
     width: "7%",
     "&: hover": {
@@ -37,11 +46,19 @@ const useStyles = makeStyles({
   },
 });
 
-const HabitCard = ({ habit, panel = true, token }) => {
+const HabitCard = ({
+  habit,
+  panel = true,
+  token,
+  updates,
+  deleteMsg,
+  doneMsg,
+  alreadyDoneMsg,
+}) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);
-  const dispatch = useDispatch();
 
   const handleOpen = (value) => {
     value === "info" ? setModalInfo(true) : setModalInfo(false);
@@ -63,7 +80,7 @@ const HabitCard = ({ habit, panel = true, token }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    dispatch(getHabitsThunk(token));
+    dispatch(getHabitsThunk(token, deleteMsg()));
 
     handleClose();
   };
@@ -72,7 +89,7 @@ const HabitCard = ({ habit, panel = true, token }) => {
     const date = format(new Date(), "dd/MM/yyyy");
 
     dispatch(addHabitProgressThunk(id, date, token));
-    dispatch(getHabitsThunk(token));
+    dispatch(getHabitsThunk(token, doneMsg()));
   };
 
   return (
@@ -108,14 +125,25 @@ const HabitCard = ({ habit, panel = true, token }) => {
             Info
           </Button>
 
-          <Button
-            className={classes.doneBtn}
-            color="primary"
-            variant="contained"
-            onClick={() => updateAchievement(habit.id)}
-          >
-            Done
-          </Button>
+          {updates ? (
+            <Button
+              className={classes.updatedBtn}
+              color="primary"
+              variant="contained"
+              onClick={() => alreadyDoneMsg()}
+            >
+              Updated
+            </Button>
+          ) : (
+            <Button
+              className={classes.doneBtn}
+              color="primary"
+              variant="contained"
+              onClick={() => updateAchievement(habit.id)}
+            >
+              Done
+            </Button>
+          )}
 
           <FaTrashAlt
             onClick={() => handleOpen("delete")}
