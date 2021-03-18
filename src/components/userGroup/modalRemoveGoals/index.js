@@ -3,9 +3,14 @@ import { FaTrashAlt } from "react-icons/fa";
 import api from "../../../services/index";
 import { ToastAnimated, showToast } from "../../toastify";
 import Button from "@material-ui/core/Button";
+import { useDispatch } from "react-redux";
+import { getGroupThunk } from "../../../store/modules/getGroups/thunk";
 
-const RemoveGoals = ({ value, token }) => {
+const RemoveGoals = ({ value, token, reloadFunction }) => {
   const toastify = () => showToast({ type: "delete", message: "Goal Deleted" });
+  const dispatch = useDispatch();
+  const userGroup = JSON.parse(localStorage.getItem("userGroup")) || "";
+
   const deleteGoal = () => {
     const previousProgress =
       JSON.parse(localStorage.getItem("goalProgress")) || [];
@@ -22,6 +27,9 @@ const RemoveGoals = ({ value, token }) => {
         toastify();
         console.log(`${value.id} deletado`);
       });
+
+    reloadFunction();
+    dispatch(getGroupThunk(userGroup));
   };
 
   return (
@@ -38,6 +46,7 @@ const RemoveGoals = ({ value, token }) => {
 
         <Button
           onClick={() => {
+            console.log("deletou");
             deleteGoal();
           }}
           variant="contained"

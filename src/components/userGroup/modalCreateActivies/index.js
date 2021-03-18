@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const CreateActivies = () => {
+const CreateActivies = ({ reloadFunction }) => {
   const toastify = () =>
     showToast({ type: "create", message: "Activity Created" });
 
@@ -49,6 +49,7 @@ const CreateActivies = () => {
     send.group = userGroup;
     console.log(send);
     console.log(save);
+    reloadFunction();
     axios
       .post(`https://kabit-api.herokuapp.com/activities/`, send, {
         headers: { Authorization: `Bearer ${token}` },
