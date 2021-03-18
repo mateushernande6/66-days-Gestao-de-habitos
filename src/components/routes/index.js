@@ -6,6 +6,7 @@ import Habits from "../../pages/habits";
 import CreateHabit from "../../pages/CreateHabit";
 import RegisterHabit from "../../pages/RegisterHabit";
 import GroupPage from "../../pages/GroupPage";
+import Dashborad from "../../pages/dashboard";
 import UpdateUser from "../../pages/updateUser";
 
 const Routes = () => {
@@ -27,7 +28,7 @@ const Routes = () => {
           </Route>
 
           <Route path="/dashboard">
-            <div>Dashboard</div>
+            <Dashborad />
           </Route>
 
           <Route path="/group">

@@ -27,11 +27,16 @@ const StandardModal = ({
   buttonColor,
   buttonHeight,
   buttonMargin,
+  id,
+  thisOpen,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
+    // (thisOpen === true &&
+    localStorage.setItem("idHabit", JSON.stringify(id));
+    // )
   };
 
   const handleClose = () => {
@@ -43,10 +48,12 @@ const StandardModal = ({
       <Buttons
         type="button"
         buttonTxt={buttonTxt}
-        onClick={handleOpen}
+        onClick={() => handleOpen(id)}
         color={buttonColor}
         height={buttonHeight}
         margin={buttonMargin}
+        id={id}
+        // open={thisOpen}
       />
 
       <Modal

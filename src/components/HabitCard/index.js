@@ -100,6 +100,77 @@ const HabitCard = ({
           <b>{habit.title}</b>
         </p>
         <p>{`Category: ${habit.category}`}</p>
+
+        {habit.achieved === false ? (
+          <p>Status: In Progress</p>
+        ) : (
+          <p>Status: Completed</p>
+        )}
+      </DivStyled>
+
+      <DivStyled>
+        <div>
+          {panel ? (
+            <>
+              {updates ? (
+                <Button
+                  className={classes.updatedBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => alreadyDoneMsg()}
+                >
+                  Updated
+                </Button>
+              ) : (
+                <Button
+                  className={classes.doneBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => updateAchievement(habit.id)}
+                >
+                  Done
+                </Button>
+              )}
+
+              <FaTrashAlt
+                onClick={() => handleOpen("delete")}
+                className={classes.trash}
+              />
+            </>
+          ) : (
+            <Button
+              className={classes.root}
+              color="primary"
+              variant="contained"
+              onClick={() => handleOpen("info")}
+            >
+              Info
+            </Button>
+          )}
+        </div>
+      </DivStyled>
+
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        habit={habit}
+        modalInfo={modalInfo}
+        deleteHabit={deleteHabit}
+      />
+    </Card>
+  );
+};
+
+export default HabitCard;
+
+{
+  /* <DivStyled>
+        <p>
+          <b>{habit.title}</b>
+        </p>
+        <p>{`Category: ${habit.category}`}</p>
         {panel ? (
           <>
             {habit.achieved === false ? (
@@ -159,60 +230,5 @@ const HabitCard = ({
         habit={habit}
         modalInfo={modalInfo}
         deleteHabit={deleteHabit}
-      />
-    </Card>
-  );
-};
-
-export default HabitCard;
-
-// <Card>
-//   <div>
-//     <p>
-//       <b>{habit.title}</b>
-//     </p>
-//     <p>
-//       <i>{`Category: ${habit.category}`}</i>
-//     </p>
-//     {panel ? (
-//       <>
-//         {habit.achieved === false ? (
-//           <p>Status: In Progress</p>
-//         ) : (
-//           <p>Status: Completed</p>
-//         )}
-//       </>
-//     ) : (
-//       ""
-//     )}
-//   </div>
-
-//   <div>
-//     {panel ? (
-//       <div>
-//         <Button
-//           className={classes.root}
-//           color="primary"
-//           variant="contained"
-//           onClick={() => handleOpen("info")}
-//         >
-//           Info
-//         </Button>
-//         <FaTrashAlt
-//           onClick={() => handleOpen("delete")}
-//           className={classes.trash}
-//         />
-//       </div>
-//     ) : (
-//       <div>
-//         <Button
-//           className={classes.doneBtn}
-//           color="primary"
-//           variant="contained"
-//           onClick={() => updateAchievement(habit.id)}
-//         >
-//           Done
-//         </Button>
-//       </div>
-//     )}
-//   </div>
+      /> */
+}

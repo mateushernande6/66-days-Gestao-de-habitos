@@ -37,6 +37,7 @@ import { HaveGroupThunk } from "../../../store/modules/haveGroup/thunks";
 import CreateActivies from "../modalCreateActivies";
 import { ToastAnimated, showToast } from "../../toastify";
 import { useSelector } from "react-redux";
+import EditActivity from "../editActivity";
 
 const ShowUserGroup = () => {
   const dispatch = useDispatch();
@@ -190,6 +191,7 @@ const ShowUserGroup = () => {
                               Date.parse(value.realization_time)
                             ).toString()}
                           </ActiviesTime>
+                          <EditActivity value={value} token={token} />
                           <ActiviesStatus>Waiting</ActiviesStatus>
                         </ActiviesInfo>
 
