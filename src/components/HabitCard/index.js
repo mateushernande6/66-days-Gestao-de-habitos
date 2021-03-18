@@ -5,7 +5,7 @@ import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
 import { addHabitProgressThunk } from "../../store/modules/habitProgress/thunk";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card } from "./styles";
+import { Card, DivStyled } from "./styles";
 import { FaTrashAlt } from "react-icons/fa";
 import Modal from "../../components/Modal";
 import { format } from "date-fns";
@@ -17,8 +17,8 @@ const useStyles = makeStyles({
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
     color: "black",
-    width: "40%",
-    height: "80%",
+    width: "30%",
+    height: "50%",
   },
   doneBtn: {
     background: "#23B5B5",
@@ -26,8 +26,8 @@ const useStyles = makeStyles({
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
     color: "black",
-    width: "40%",
-    height: "80%",
+    width: "30%",
+    height: "50%",
   },
   updatedBtn: {
     background: "#F25456",
@@ -35,12 +35,13 @@ const useStyles = makeStyles({
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
     color: "black",
-    width: "40%",
-    height: "80%",
+    width: "30%",
+    height: "50%",
   },
   trash: {
-    width: "7%",
-    "&: hover": {
+    width: "20%",
+    height: "30%",
+    "&:hover": {
       cursor: "pointer",
     },
   },
@@ -94,13 +95,11 @@ const HabitCard = ({
 
   return (
     <Card>
-      <div>
+      <DivStyled>
         <p>
           <b>{habit.title}</b>
         </p>
-        <p>
-          <i>{`Category: ${habit.category}`}</i>
-        </p>
+        <p>{`Category: ${habit.category}`}</p>
         {panel ? (
           <>
             {habit.achieved === false ? (
@@ -112,9 +111,9 @@ const HabitCard = ({
         ) : (
           ""
         )}
-      </div>
+      </DivStyled>
 
-      <div>
+      <DivStyled>
         <div>
           <Button
             className={classes.root}
@@ -150,7 +149,7 @@ const HabitCard = ({
             className={classes.trash}
           />
         </div>
-      </div>
+      </DivStyled>
 
       <Modal
         open={open}
