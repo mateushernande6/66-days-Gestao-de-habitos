@@ -5,7 +5,7 @@ import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
 import { addHabitProgressThunk } from "../../store/modules/habitProgress/thunk";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card } from "./styles";
+import { Card, DivStyled } from "./styles";
 import { FaTrashAlt } from "react-icons/fa";
 import Modal from "../../components/Modal";
 import { format } from "date-fns";
@@ -17,8 +17,8 @@ const useStyles = makeStyles({
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
     color: "black",
-    width: "40%",
-    height: "80%",
+    width: "30%",
+    height: "50%",
   },
   doneBtn: {
     background: "#23B5B5",
@@ -26,8 +26,8 @@ const useStyles = makeStyles({
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
     color: "black",
-    width: "40%",
-    height: "80%",
+    width: "30%",
+    height: "50%",
   },
   updatedBtn: {
     background: "#F25456",
@@ -35,12 +35,13 @@ const useStyles = makeStyles({
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
     color: "black",
-    width: "40%",
-    height: "80%",
+    width: "30%",
+    height: "50%",
   },
   trash: {
-    width: "7%",
-    "&: hover": {
+    width: "20%",
+    height: "30%",
+    "&:hover": {
       cursor: "pointer",
     },
   },
@@ -94,13 +95,82 @@ const HabitCard = ({
 
   return (
     <Card>
-      <div>
+      <DivStyled>
         <p>
           <b>{habit.title}</b>
         </p>
+        <p>{`Category: ${habit.category}`}</p>
+
+        {habit.achieved === false ? (
+          <p>Status: In Progress</p>
+        ) : (
+          <p>Status: Completed</p>
+        )}
+      </DivStyled>
+
+      <DivStyled>
+        <div>
+          {panel ? (
+            <>
+              {updates ? (
+                <Button
+                  className={classes.updatedBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => alreadyDoneMsg()}
+                >
+                  Updated
+                </Button>
+              ) : (
+                <Button
+                  className={classes.doneBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => updateAchievement(habit.id)}
+                >
+                  Done
+                </Button>
+              )}
+
+              <FaTrashAlt
+                onClick={() => handleOpen("delete")}
+                className={classes.trash}
+              />
+            </>
+          ) : (
+            <Button
+              className={classes.root}
+              color="primary"
+              variant="contained"
+              onClick={() => handleOpen("info")}
+            >
+              Info
+            </Button>
+          )}
+        </div>
+      </DivStyled>
+
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        habit={habit}
+        modalInfo={modalInfo}
+        deleteHabit={deleteHabit}
+      />
+    </Card>
+  );
+};
+
+export default HabitCard;
+
+{
+  /* <DivStyled>
         <p>
-          <i>{`Category: ${habit.category}`}</i>
+          <b>{habit.title}</b>
         </p>
+        <p>{`Category: ${habit.category}`}</p>
         {panel ? (
           <>
             {habit.achieved === false ? (
@@ -112,9 +182,9 @@ const HabitCard = ({
         ) : (
           ""
         )}
-      </div>
+      </DivStyled>
 
-      <div>
+      <DivStyled>
         <div>
           <Button
             className={classes.root}
@@ -150,7 +220,7 @@ const HabitCard = ({
             className={classes.trash}
           />
         </div>
-      </div>
+      </DivStyled>
 
       <Modal
         open={open}
@@ -160,60 +230,5 @@ const HabitCard = ({
         habit={habit}
         modalInfo={modalInfo}
         deleteHabit={deleteHabit}
-      />
-    </Card>
-  );
-};
-
-export default HabitCard;
-
-// <Card>
-//   <div>
-//     <p>
-//       <b>{habit.title}</b>
-//     </p>
-//     <p>
-//       <i>{`Category: ${habit.category}`}</i>
-//     </p>
-//     {panel ? (
-//       <>
-//         {habit.achieved === false ? (
-//           <p>Status: In Progress</p>
-//         ) : (
-//           <p>Status: Completed</p>
-//         )}
-//       </>
-//     ) : (
-//       ""
-//     )}
-//   </div>
-
-//   <div>
-//     {panel ? (
-//       <div>
-//         <Button
-//           className={classes.root}
-//           color="primary"
-//           variant="contained"
-//           onClick={() => handleOpen("info")}
-//         >
-//           Info
-//         </Button>
-//         <FaTrashAlt
-//           onClick={() => handleOpen("delete")}
-//           className={classes.trash}
-//         />
-//       </div>
-//     ) : (
-//       <div>
-//         <Button
-//           className={classes.doneBtn}
-//           color="primary"
-//           variant="contained"
-//           onClick={() => updateAchievement(habit.id)}
-//         >
-//           Done
-//         </Button>
-//       </div>
-//     )}
-//   </div>
+      /> */
+}
