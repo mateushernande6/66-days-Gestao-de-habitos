@@ -98,7 +98,7 @@ const Register = () => {
           </div>
           <DivButton>
             {err === 400 && (
-              <ErrorMessage>username already exists</ErrorMessage>
+              <ErrorMessage>enter a valid data</ErrorMessage>
             )}
             <Button type="submit" className="registerBtn" variant="contained">
               Sign up
