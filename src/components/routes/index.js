@@ -8,20 +8,27 @@ import RegisterHabit from "../../pages/RegisterHabit";
 import GroupPage from "../../pages/GroupPage";
 import Dashborad from "../../pages/dashboard";
 import UpdateUser from "../../pages/updateUser";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Routes = () => {
   const isLogged = useSelector((state) => state.logged);
+  const token = JSON.parse(localStorage.getItem("token"));
 
+  const [local, setLocal] = useState("");
+
+  function usePageViews() {
+    let location = useLocation();
+    useEffect(() => {
+      setLocal(location.pathname);
+    }, [location]);
+  }
+
+  usePageViews();
+  console.log("route local", typeof local);
   return (
     <Switch>
-      <Route exact path="/">
-        <Login />
-      </Route>
-
-      <Route path="/register">
-        <Register />
-      </Route>
-      {isLogged ? (
+      {isLogged && token ? (
         <>
           <Route path="/home">
             <Habits />
@@ -47,8 +54,21 @@ const Routes = () => {
             <RegisterHabit />
           </Route>
         </>
+      ) : isLogged === false ||
+        (!token && local === "/") ||
+        local === "/register" ||
+        local === "" ? (
+        <>
+          <Redirect to="/" />
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+        </>
       ) : (
-        <Redirect to="/" />
+        local === "/" || (local === "" && token && <Redirect to="/dashboard" />)
       )}
     </Switch>
   );

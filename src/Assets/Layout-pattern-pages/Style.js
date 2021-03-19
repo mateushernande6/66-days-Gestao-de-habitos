@@ -56,6 +56,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
 `;
 
 export const CircleTop = styled.div`
@@ -63,8 +64,8 @@ export const CircleTop = styled.div`
   position: absolute;
   left: 3vw;
   top: 2vh;
-  width: 378px;
-  height: 378px;
+  width: 250px;
+  height: 250px;
   border: solid 1px rgba(255, 255, 255, 0.3);
   background: rgba(143, 194, 193, 0.3);
   background-clip: padding-box;
@@ -82,8 +83,8 @@ export const CircleBottom = styled.div`
   position: absolute;
   right: 3vw;
   bottom: 2vh;
-  width: 378px;
-  height: 378px;
+  width: 250px;
+  height: 250px;
   border: solid 1px rgba(255, 255, 255, 0.1);
   background: rgba(143, 194, 193, 0.3);
   background-clip: padding-box;

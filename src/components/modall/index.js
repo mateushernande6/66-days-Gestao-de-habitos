@@ -4,6 +4,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Buttons from "../button";
 import { useState } from "react";
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -29,6 +30,7 @@ const StandardModal = ({
   buttonMargin,
   id,
   thisOpen,
+  close,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);

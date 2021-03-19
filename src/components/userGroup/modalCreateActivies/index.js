@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState, useEffect } from "react";
-import StandardModal from "../../modal";
+import StandardModal from "../../modall";
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import { Form, Label, ContentModal } from "./styles";
 import axios from "axios";

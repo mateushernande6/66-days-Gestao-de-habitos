@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import StandardModal from "../../modal";
+import StandardModal from "../../modall";
 import { AiFillEdit } from "react-icons/ai";
 import api from "../../../services/index";
 import { makeStyles } from "@material-ui/core/styles";

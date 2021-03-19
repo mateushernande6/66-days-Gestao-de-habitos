@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import StandardModal from "../../modal";
+import StandardModal from "../../modall";
 import StandardButton from "../../button";
 import { AiFillEdit } from "react-icons/ai";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";

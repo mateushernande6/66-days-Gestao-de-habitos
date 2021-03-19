@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import StandardButton from "../../button";
-import StandardModal from "../../modal";
+import StandardModal from "../../modall";
 import CreateGoals from "../modalCreateGoals";
 import RemoveActivies from "../modalRemoveActivies";
 import RemoveGoals from "../modalRemoveGoals";

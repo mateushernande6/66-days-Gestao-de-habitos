@@ -1,4 +1,4 @@
-import StandardModal from "../../modal";
+import StandardModal from "../../modall";
 import { FaTrashAlt } from "react-icons/fa";
 
 import api from "../../../services/index";
