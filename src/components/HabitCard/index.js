@@ -12,16 +12,19 @@ import { format } from "date-fns";
 
 const useStyles = makeStyles({
   root: {
-    background: "#DDDDDD",
+    background: "#23b5b58a",
     border: 0,
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",
     color: "black",
     width: "30%",
     height: "50%",
+    "&:hover": {
+      background: "#bddad2",
+    },
   },
   doneBtn: {
-    background: "#23B5B5",
+    background: "#23b5b58a",
     border: 0,
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .3)",

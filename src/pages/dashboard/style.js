@@ -1,29 +1,28 @@
 import styled, { keyframes } from "styled-components";
 import checklist from "../../images/checklist.jpg";
 
-// export const Container = styled.div`
-//   margin-left: 5vw;
-// `;
-
 export const HeaderDashboard = styled.div`
   width: 80vw;
   padding: 5px;
+  padding-left: 9px;
   height: 60px;
   border-radius: 5px;
   background-color: white;
   display: flex;
   align-items: center;
+  z-index: 2;
 `;
 export const InfoHeader = styled.div`
   width: 60%;
   height: 40px;
-  border: 0.5px solid black;
+  box-shadow: 154px 13px 86px black;
   border-radius: 5px;
 
   color: black;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  z-index: 2;
 `;
 export const DashTitle = styled.div`
   width: 80vw;
@@ -33,17 +32,19 @@ export const DashTitle = styled.div`
   color: black;
   text-align: left;
   line-height: 94px;
+  z-index: 2;
 `;
 
 export const UserInfo = styled.div`
   color: black;
   font-family: "Roboto", sans-serif;
   width: 39%;
-
+  box-shadow: 123px 0 93px #bddad2;
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  z-index: 2;
 `;
 
 export const ContainerGraphic = styled.div`
@@ -64,6 +65,10 @@ export const ContainerGraphic = styled.div`
     height: 40px;
     h2 {
       margin-bottom: 0;
+      margin-top: 0;
+      line-height: 40px;
+      background-color: #bddad2;
+      box-shadow: 0 75px 109px #bddad2;
     }
   }
   .graphic {
@@ -86,6 +91,7 @@ export const ContainerGraphic = styled.div`
     height: 300px;
     border: 1px solid black;
     padding: 10px;
+    border-radius: 10px;
     .titlePanel {
       margin-bottom: 8px;
     }
@@ -165,6 +171,7 @@ export const Container = styled.div`
 `;
 
 export const CircleTop = styled.div`
+  z-index: 1;
   border-radius: 100%;
   position: absolute;
   left: 3vw;
@@ -184,6 +191,7 @@ export const CircleTop = styled.div`
 `;
 
 export const CircleBottom = styled.div`
+  z-index: 1;
   border-radius: 100%;
   position: absolute;
   right: 3vw;
