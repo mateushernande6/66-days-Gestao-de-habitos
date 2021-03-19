@@ -7,14 +7,15 @@ import { useDispatch } from "react-redux";
 import { HaveGroupThunk } from "../../../store/modules/haveGroup/thunks";
 const useStyles = makeStyles({
   root: {
-    background: "linear-gradient(45deg, #8aeb91 30%, #86e78e 90%)",
+    color: "black",
     border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    color: "white",
-    height: 26,
-    padding: "0 30px",
+    height: "26px",
     margin: "4px",
+    padding: "0 30px",
+
+    background: "#23b5b594",
+    boxShadow: "0 3px 5px 2px rgb(105 220 255 / 30%)",
+    borderRadius: "5px",
   },
 });
 const ShowGroups = ({ groupList, children }) => {
@@ -44,13 +45,16 @@ const ShowGroups = ({ groupList, children }) => {
           <div key={index}>
             {item.map((value, index) => (
               <DivGroup key={index}>
-                <Title>{value.name}</Title>
+                <Title>
+                  Name Group: <b>{value.name.toUpperCase()}</b>
+                </Title>
                 <Description>
-                  <span>Category: {value.category} Description</span>
+                  <span>
+                    Category: <i>{value.category.toUpperCase()}</i>
+                  </span>
                   <div>{value.description}</div>
-                </Description>
-                <div>
-                  Users: {value.users.length}
+                  <div>USERS: {value.users.length}</div>
+
                   <Button
                     className={classes.root}
                     color="primary"
@@ -59,7 +63,7 @@ const ShowGroups = ({ groupList, children }) => {
                   >
                     Join
                   </Button>
-                </div>
+                </Description>
               </DivGroup>
             ))}
           </div>

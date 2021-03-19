@@ -1,6 +1,5 @@
 import { HaveGroup } from "./actions";
-const group = localStorage.getItem("userGroup");
-const HaveGroupReducer = (state = group, action) => {
+const HaveGroupReducer = (state = false, action) => {
   switch (action.type) {
     case "@haveGroup/HAVE":
       const { resp } = action;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalDiv = styled.div`
-  background-color: #ededf6;
+  background-color: rgba(143, 194, 193, 0.3);
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
@@ -11,6 +11,9 @@ export const ModalDiv = styled.div`
   border-radius: 10px;
   margin: 0px;
   text-align: center;
+  button:hover {
+    background-color: #5cd8b6e6;
+  }
 
   section {
     background-color: #ffffff;

@@ -1,4 +1,4 @@
-const getGroupsReducer = (state = [], actions) => {
+const getGroupsReducer = (state = false, actions) => {
   switch (actions.type) {
     case "@groups/GET":
       const { obj } = actions;

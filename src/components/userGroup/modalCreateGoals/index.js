@@ -1,12 +1,15 @@
+<<<<<<< HEAD
 import StandardModal from "../../modall";
 import ContentCreateGoal from "./modalContent";
+=======
+import StandardModal from "../../modal";
+>>>>>>> 33179ed60d487f5fb6dd97f7428211d79158f0ea
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import StandardButton from "../../button";
 import { AiFillEdit } from "react-icons/ai";
-import CreateGroup from "../../../pages/groups/modal/modalCreateGroup";
 import { ContentModal } from "./styles";
 import api from "../../../services/index";
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const CreateGoals = () => {
+const CreateGoals = ({ reloadFunction }) => {
   const classes = useStyles();
   const [difficulty, setDifficulty] = useState("");
   const [token, setToken] = useState(() => {
@@ -57,6 +60,7 @@ const CreateGoals = () => {
     data.difficulty = difficulty;
     data.how_much_achieved = 0;
     data.group = userGroup;
+    reloadFunction();
     console.log(data);
     api
       .post(`/goals/`, data, {
