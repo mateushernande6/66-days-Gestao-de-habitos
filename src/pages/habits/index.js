@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getHabitsThunk } from "../../store/modules/getHabits/thunk";
-import CreateHabit from "./CreateHabit";
+import CreateHabit from "../CreateHabit";
 import MyHabits from "./myHabits/";
 
 const Habits = () => {

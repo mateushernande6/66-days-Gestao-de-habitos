@@ -1,5 +1,4 @@
 import { HaveGroup } from "./actions";
-
 const HaveGroupReducer = (state = false, action) => {
   switch (action.type) {
     case "@haveGroup/HAVE":

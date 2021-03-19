@@ -1,11 +1,35 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getHabitsThunk } from "../../../store/modules/getHabits/thunk";
-import { StyledContainer, StyledContentBox } from "./styles";
-import { Button } from "@material-ui/core";
+import {
+  StyledContainer,
+  StyledContentBox,
+  ContainerCreateCard,
+  SelectStyled,
+  HeaderStyled,
+  H1,
+  H3,
+} from "./styles";
 import { makeStyles } from "@material-ui/core/styles";
 import HabitCard from "../../../components/HabitCard";
 import { useHistory } from "react-router-dom";
+import { format } from "date-fns";
+import { ToastAnimated, showToast } from "../../../components/toastify";
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from "@material-ui/core";
+import {
+  Container,
+  CircleBottom,
+  CircleTop,
+} from "../../../Assets/Layout-pattern-pages/Style";
 
 const useStyles = makeStyles({
   root: {
@@ -18,9 +42,40 @@ const useStyles = makeStyles({
     width: "250px",
     height: "62px",
     display: "block",
-    margin: "0 auto",
+    margin: "2vh auto",
     gridColumnStart: "1",
     gridColumnEnd: "3",
+  },
+  spaceBottom: {
+    marginBottom: "30px",
+  },
+
+  formControl: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "20%",
+    maxWidth: "150px",
+  },
+
+  selectWidth: {
+    width: "100%",
+  },
+
+  optionColorAndFont: {
+    color: "black",
+  },
+  radioGrupDisplay: {
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "50px",
+  },
+
+  buttonStyle: {
+    width: "200px",
+    height: "50px;",
+    background: "#23B5B5",
   },
 });
 
@@ -33,11 +88,10 @@ const MyHabits = () => {
   });
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
-  // const [anotherFilterCategory, setAnotherFilterCategory] = useState("all");
   const getHabits = useSelector((state) => state.getHabits);
 
   useEffect(() => {
-    dispatch(getHabitsThunk(token));
+    dispatch(getHabitsThunk(token), toastifyRefresh());
   }, []);
 
   const handleCategoryFilter = (elem, value) => {
@@ -58,96 +112,222 @@ const MyHabits = () => {
     }
   };
 
-  return (
-    <StyledContainer>
-      <StyledContentBox>
-        <header>
-          <p>Habits Panel</p>
-          <select
-            name="status"
-            id="level"
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-          >
-            <option value="all">All</option>
-            <option value="in progress">In Progress</option>
-            <option value="completed">Completed</option>
-          </select>
+  const isUpgradeableFunction = (arr) => {
+    const today = format(new Date(), "dd/MM/yyyy");
 
-          <select
-            name="Category"
-            id="level"
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value)}
+    const isUpdate = arr.filter((elem) => elem === today).length > 0;
+
+    if (isUpdate) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const toastifyRefresh = () =>
+    showToast({ type: "send", message: "Habits Panel is updated" });
+
+  const toastifyDelete = () =>
+    showToast({ type: "delete", message: "Habit deleted" });
+
+  const toastifyDone = () =>
+    showToast({ type: "create", message: "Congrats! Habit's done today" });
+
+  const toastifyAlreadyDone = () =>
+    showToast({ type: "delete", message: "You've already done this today" });
+
+  return (
+    <Container>
+      <CircleTop />
+      <CircleBottom />
+      <ContainerCreateCard>
+        <ToastAnimated />
+
+        <HeaderStyled>
+          <H1>Habits Panel</H1>
+
+          <FormControl
+            className={classes.formControl}
+            required
+            variant="outlined"
           >
-            <option selected value="all">
-              All
-            </option>
-            <option value="career">Career</option>
-            <option value="food">Food</option>
-            <option value="health">Health</option>
-            <option value="study">Study</option>
-          </select>
-        </header>
+            <Select
+              className={classes.selectWidth}
+              id="demo-simple-select-outlined"
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+            >
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="in progress">In Progress</MenuItem>
+              <MenuItem value="completed">Completed</MenuItem>
+            </Select>
+          </FormControl>
+
+          <FormControl
+            required
+            variant="outlined"
+            className={classes.formControl}
+          >
+            <Select
+              className={classes.selectWidth}
+              id="demo-simple-select-outlined"
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+            >
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="career">Career</MenuItem>
+              <MenuItem value="food">Food</MenuItem>
+              <MenuItem value="health">Health</MenuItem>
+              <MenuItem value="study">Study</MenuItem>
+            </Select>
+          </FormControl>
+        </HeaderStyled>
         <main>
           {getHabits &&
             getHabits
+              .sort(function (a, b) {
+                return a.updates.length < b.updates.length
+                  ? -1
+                  : a.updates.length > b.updates.length
+                  ? 1
+                  : 0;
+              })
               .filter(
                 (elem) =>
                   handleCategoryFilter(elem, filterCategory) &&
                   handleStatusFilter(elem, filterStatus)
               )
               .map((elem, index) => (
-                <HabitCard key={index} habit={elem} token={token} />
+                <HabitCard
+                  key={index}
+                  habit={elem}
+                  token={token}
+                  updates={isUpgradeableFunction(elem.updates)}
+                  deleteMsg={toastifyDelete}
+                  doneMsg={toastifyDone}
+                  alreadyDoneMsg={toastifyAlreadyDone}
+                />
               ))}
         </main>
-      </StyledContentBox>
 
-      <Button
-        onClick={() => history.push("/register-habit")}
-        className={classes.root}
-        color="primary"
-        variant="contained"
-      >
-        Create Habit
-      </Button>
-    </StyledContainer>
+        <Button
+          onClick={() => history.push("/register-habit")}
+          className={classes.root}
+          color="primary"
+          variant="contained"
+        >
+          Create Habit
+        </Button>
+      </ContainerCreateCard>
+    </Container>
   );
 };
 
 export default MyHabits;
 
-{
-  /* <StyledContentBox>
-  <header>
-    <p>Today's Habits</p>
-    <select
-      name="Category"
-      id="level"
-      value={anotherFilterCategory}
-      onChange={(e) => setAnotherFilterCategory(e.target.value)}
-    >
-      <option value="all">All</option>
-      <option value="career">Career</option>
-      <option value="food">Food</option>
-      <option value="health">Health</option>
-      <option value="study">Study</option>
-    </select>
-  </header>
-  <main>
-    {getHabits &&
-      getHabits
-        .filter((elem) =>
-          handleCategoryFilter(elem, anotherFilterCategory)
-        )
-        .map((elem, index) => (
-          <HabitCard
-            key={index}
-            habit={elem}
-            panel={false}
-            token={token}
-          />
-        ))}
-  </main>
-</StyledContentBox> */
-}
+// <StyledContainer>
+//   <ToastAnimated />
+
+//   <StyledContentBox>
+//     <header>
+//       <p>Habits Panel</p>
+//       {/* <select
+//         name="status"
+//         id="level"
+//         value={filterStatus}
+//         onChange={(e) => setFilterStatus(e.target.value)}
+//       >
+//         <option value="all">All</option>
+//         <option value="in progress">In Progress</option>
+//         <option value="completed">Completed</option>
+//       </select> */}
+
+//       <FormControl
+//         required
+//         variant="outlined"
+//         className={classes.formControl}
+//       >
+//         <Select
+//           id="demo-simple-select-outlined"
+//           className={classes.selectWidth}
+//           value={filterStatus}
+//           onChange={(e) => setFilterStatus(e.target.value)}
+//         >
+//           <MenuItem value="all">All</MenuItem>
+//           <MenuItem value="in progress">In Progress</MenuItem>
+//           <MenuItem value="completed">Completed</MenuItem>
+//         </Select>
+//       </FormControl>
+
+//       {/* <select
+//         name="Category"
+//         id="level"
+//         value={filterCategory}
+//         onChange={(e) => setFilterCategory(e.target.value)}
+//       >
+//         <option selected value="all">
+//           All
+//         </option>
+//         <option value="career">Career</option>
+//         <option value="food">Food</option>
+//         <option value="health">Health</option>
+//         <option value="study">Study</option>
+//       </select> */}
+
+//       <FormControl
+//         required
+//         variant="outlined"
+//         className={classes.formControl}
+//       >
+//         <Select
+//           id="demo-simple-select-outlined"
+//           className={classes.selectWidth}
+//           value={filterCategory}
+//           onChange={(e) => setFilterCategory(e.target.value)}
+//         >
+//           <MenuItem value="all">All</MenuItem>
+//           <MenuItem value="career">Career</MenuItem>
+//           <MenuItem value="food">Food</MenuItem>
+//           <MenuItem value="health">Health</MenuItem>
+//           <MenuItem value="study">Study</MenuItem>
+//         </Select>
+//       </FormControl>
+//     </header>
+//     <main>
+//       {getHabits &&
+//         getHabits
+//           .sort(function (a, b) {
+//             return a.updates.length < b.updates.length
+//               ? -1
+//               : a.updates.length > b.updates.length
+//               ? 1
+//               : 0;
+//           })
+//           .filter(
+//             (elem) =>
+//               handleCategoryFilter(elem, filterCategory) &&
+//               handleStatusFilter(elem, filterStatus)
+//           )
+//           .map((elem, index) => (
+//             <HabitCard
+//               key={index}
+//               habit={elem}
+//               token={token}
+//               updates={isUpgradeableFunction(elem.updates)}
+//               deleteMsg={toastifyDelete}
+//               doneMsg={toastifyDone}
+//               alreadyDoneMsg={toastifyAlreadyDone}
+//             />
+//           ))}
+//     </main>
+//   </StyledContentBox>
+
+//   <Button
+//     onClick={() => history.push("/register-habit")}
+//     className={classes.root}
+//     color="primary"
+//     variant="contained"
+//   >
+//     Create Habit
+//   </Button>
+// </StyledContainer>

@@ -1,7 +1,60 @@
 import styled from "styled-components";
+import { Select } from "@material-ui/core";
+
+export const ContainerCreateCard = styled.div`
+  width: 85vw;
+  max-width: 800px;
+  height: 90vh;
+  max-height: 882px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: solid 2px lightgray;
+  border-radius: 10px;
+  box-shadow: 2px 2px 20px lightgray;
+  background-color: white;
+  position: relative;
+
+  main {
+    width: 98%;
+    height: 90%;
+    margin: 0 auto;
+    overflow: auto;
+  }
+`;
+
+export const HeaderStyled = styled.header`
+  color: black;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid lightgray;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+  max-height: 80px;
+  div {
+    padding: 5px;
+  }
+`;
+
+export const H1 = styled.h1`
+  font-size: 30px;
+  color: black;
+`;
+
+export const H3 = styled.h3`
+  font-size: 18px;
+  font-weight: lighter;
+  color: black;
+`;
+
+export const SelectStyled = styled(Select)``;
 
 export const StyledContainer = styled.div`
   width: 85vw;
+  max-width: 800px;
   height: 90vh;
   display: flex;
   flex-direction: column;

@@ -4,6 +4,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Buttons from "../button";
 import { useState } from "react";
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -15,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    display: "flex",
+    flexFlow: "column wrap",
+    alignItems: "center",
   },
 }));
 
@@ -24,12 +28,17 @@ const StandardModal = ({
   buttonColor,
   buttonHeight,
   buttonMargin,
+  id,
+  thisOpen,
+  close,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => {
     setOpen(true);
+    // (thisOpen === true &&
+    localStorage.setItem("idHabit", JSON.stringify(id));
+    // )
   };
 
   const handleClose = () => {
@@ -41,10 +50,12 @@ const StandardModal = ({
       <Buttons
         type="button"
         buttonTxt={buttonTxt}
-        onClick={handleOpen}
+        onClick={() => handleOpen(id)}
         color={buttonColor}
         height={buttonHeight}
         margin={buttonMargin}
+        id={id}
+        // open={thisOpen}
       />
 
       <Modal
@@ -60,7 +71,17 @@ const StandardModal = ({
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>{children}</div>
+          <div className={classes.paper}>
+            {children}
+            <Buttons
+              style={{ margin: "0 auto" }}
+              type="button"
+              buttonTxt="Close"
+              onClick={handleClose}
+              height={buttonHeight}
+              margin={buttonMargin}
+            />
+          </div>
         </Fade>
       </Modal>
     </div>

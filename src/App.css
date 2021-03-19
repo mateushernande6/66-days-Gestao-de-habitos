@@ -16,6 +16,10 @@
 }
 
 body {
-  background: #8fc1c1;
+  background: #35a1ad;
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
 }
