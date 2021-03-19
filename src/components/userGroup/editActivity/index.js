@@ -9,11 +9,8 @@ import { Form, Label, ContentModal } from "./styles";
 import { Button, TextField } from "@material-ui/core";
 import { showToast } from "../../toastify";
 import { useState } from "react";
-<<<<<<< HEAD
-=======
 import { useDispatch } from "react-redux";
 import { getGroupThunk } from "../../../store/modules/getGroups/thunk";
->>>>>>> 33179ed60d487f5fb6dd97f7428211d79158f0ea
 
 const useStyles = makeStyles((theme) => ({
   root: {

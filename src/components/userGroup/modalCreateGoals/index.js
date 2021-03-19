@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 import StandardModal from "../../modall";
-import ContentCreateGoal from "./modalContent";
-=======
-import StandardModal from "../../modal";
->>>>>>> 33179ed60d487f5fb6dd97f7428211d79158f0ea
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
