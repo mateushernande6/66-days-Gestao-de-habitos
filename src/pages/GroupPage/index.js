@@ -2,6 +2,7 @@ import Groups from "../groups";
 import UserGroup from "../../components/userGroup";
 import { useSelector } from "react-redux";
 import PersonalGroup from "../personalGroup";
+import { useState } from "react";
 import {
   CircleBottom,
   CircleTop,
@@ -9,6 +10,7 @@ import {
 } from "../../Assets/Layout-pattern-pages/Style";
 
 const GroupPage = () => {
+  const [pageRender, setPageRender] = useState(false);
   const joinGroup = useSelector((state) => state.haveGroup);
   const haveGroup = JSON.parse(localStorage.getItem("userGroup"));
   console.log(haveGroup);

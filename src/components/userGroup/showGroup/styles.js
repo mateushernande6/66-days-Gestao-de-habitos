@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "@material-ui/core";
 
 export const MainDiv = styled.div`
   display: flex;
@@ -18,14 +19,19 @@ export const InfoGroup = styled.div`
   justify-content: space-around;
   border: solid 2px lightgray;
   padding: 10px;
+
+  button {
+    background-color: #ed4749;
+  }
 `;
 
 export const InfoGroupName = styled.div`
   font-weight: bolder;
+  box-shadow: 375px 13px 120px #dddad2;
 `;
 
 export const Details = styled.div`
-  border: solid 2px lightgray;
+  box-shadow: 154px 13px 150px black;
   border-radius: 6px;
   display: flex;
   flex-flow: row wrap;
@@ -39,29 +45,29 @@ export const MainInfo = styled.div`
   flex-flow: row wrap;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 12px;
+  padding-top: 12px;
+  height: 80vh;
 `;
 
 export const InfoGoalsBorder = styled.div`
   background-color: #ffffff;
-
+  margin-bottom: 10px;
   padding: 8px;
   border-radius: 7px;
   border: solid 2px lightgray;
-  flex-basis: 430px;
+  flex-basis: 475px;
   overflow-y: scroll;
   max-height: 75vh;
-  @media (max-width: 1200px) {
-    max-height: 33vh;
-    margin-bottom: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const InfoGoals = styled.div`
   border-radius: 6px;
   border: solid 2px lightgray;
+  padding: 15px;
 
-  padding: 8px;
   h5 {
     margin: 0px;
     margin-bottom: 15px;
@@ -72,23 +78,22 @@ export const InfoGoals = styled.div`
 `;
 export const InfoActiviesBorder = styled.div`
   background-color: #ffffff;
-
   border-radius: 7px;
   border: solid 2px lightgray;
   padding: 8px;
-  flex-basis: 430px;
+  flex-basis: 475px;
   overflow-y: scroll;
   max-height: 75vh;
-  @media (max-width: 1200px) {
-    max-height: 33vh;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 export const InfoActivies = styled.div`
   border-radius: 6px;
   border: solid 2px lightgray;
-
-  padding: 8px;
+  padding: 15px;
   h5 {
     margin: 0px;
     margin-bottom: 15px;
@@ -105,10 +110,10 @@ export const CardGoal = styled.div`
   align-items: center;
   padding: 2px;
   padding-left: 18px;
-  border: 1.5px solid black;
-  box-shadow: 1px 3px 14px #868585;
+  box-shadow: 3px 3px 8px black;
   border-radius: 6px;
   margin-bottom: 10px;
+  background-color: #bddad266;
 `;
 export const GoalInfo = styled.div`
   width: 74%;
@@ -126,5 +131,30 @@ export const ActiviesInfo = styled.div`
 `;
 export const ActiviesStatus = styled.div``;
 export const ActiviesTime = styled.div`
-  color: red;
+  color: blue;
+`;
+export const H1 = styled.h1`
+  font-size: 30px;
+  color: black;
+`;
+export const H3 = styled.h3`
+  font-size: 18px;
+  font-weight: lighter;
+  color: black;
+`;
+
+export const BoxContainer = styled.div`
+  width: 70%;
+`;
+
+export const ButtonBox = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    @media (max-width: 375px) {
+      width: 10px;
+    }
+  }
 `;
